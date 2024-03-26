@@ -1,3 +1,5 @@
+export type FilterOption = "title" | "genre";
+
 export interface BaseMovie {
   title: string;
   budget: number;
@@ -36,4 +38,8 @@ export interface MovieImage {
   vote_average?: number;
   vote_count?: number;
   width?: number;
+}
+
+export interface ListedMovie extends BaseMovie {
+  genre_ids: number[];
 }
