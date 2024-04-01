@@ -43,3 +43,9 @@ export interface MovieImage {
 export interface ListedMovie extends BaseMovie {
   genre_ids: number[];
 }
+
+export interface MovieListPageTemplateProps {
+  movies: ListedMovie[];
+  title: string;
+  selectFavourite: (m: number) => void;
+}
