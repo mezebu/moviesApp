@@ -40,6 +40,13 @@ const MovieListPage: React.FC = () => {
     else setGenreFilter(value);
   };
 
+  const addToFavourites = (movieId: number) => {
+    const updatedMovies = movies.map((m: ListedMovie) =>
+      m.id === movieId ? { ...m, favourite: true } : m
+    );
+    setMovies(updatedMovies);
+  };
+
   useEffect(() => {
     fetch(
       `https://api.themoviedb.org/3/discover/movie?api_key=${
@@ -64,7 +71,10 @@ const MovieListPage: React.FC = () => {
           <Header title={"Home Page"} />
         </Grid>
         <Grid item container spacing={5}>
-          <MovieList movies={displayedMovies}></MovieList>
+          <MovieList
+            movies={displayedMovies}
+            selectFavourite={addToFavourites}
+          />
         </Grid>
       </Grid>
       <Fab
