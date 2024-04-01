@@ -11,7 +11,7 @@ import { SelectChangeEvent } from "@mui/material";
 
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { FilterOption } from "../../types";
+import { FilterOption } from "../../types/interfaces";
 
 const styles = {
   root: {
@@ -27,6 +27,7 @@ const styles = {
 };
 
 interface FilterMoviesCardProps {
+  onUserInput: (f: FilterOption, s: string) => void;
   titleFilter: string;
   genreFilter: string;
 }
@@ -56,7 +57,7 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
     value: string
   ) => {
     e.preventDefault();
-    // Completed later
+    props.onUserInput(type, value);
   };
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
