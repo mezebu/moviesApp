@@ -44,6 +44,20 @@ const MovieDetails: React.FC<MovieT> = (props) => {
         ))}
       </Paper>
       <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip
+            label="Production Countries"
+            sx={styles.chipLabel}
+            color="primary"
+          />
+        </li>
+        {props.production_countries.map((g) => (
+          <li key={g.name}>
+            <Chip label={g.name} />
+          </li>
+        ))}
+      </Paper>
+      <Paper component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${props.runtime} min.`} />
         <Chip
           icon={<MonetizationIcon />}
