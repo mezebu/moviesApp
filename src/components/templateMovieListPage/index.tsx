@@ -49,7 +49,7 @@ function MovieListPageTemplate({
         <Grid item xs={12}>
           <Header title={title} />
         </Grid>
-        <Grid item container spacing={5}>
+        <Grid item container spacing={2}>
           <MovieList
             movies={displayedMovies}
             selectFavourite={selectFavourite}

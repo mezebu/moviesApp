@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -15,12 +15,23 @@ import img from "../../images/film-poster-placeholder.png";
 import { BaseMovie } from "../../types/interfaces";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
+import { Box } from "@mui/material";
 
 const styles = {
-  card: { maxWidth: 345 },
-  media: { height: 500 },
+  card: {
+    maxWidth: 400,
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  media: { height: 0, paddingTop: "56.25%" }, // 16:9 aspect ratio
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
+  },
+  content: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 };
 
@@ -35,7 +46,7 @@ const MovieCard: React.FC<MovieCardProps> = (props) => {
   };
 
   return (
-    <Card sx={styles.card}>
+    <Card sx={styles.card} variant="outlined">
       <CardHeader
         avatar={
           props.favourite ? (
@@ -44,11 +55,7 @@ const MovieCard: React.FC<MovieCardProps> = (props) => {
             </Avatar>
           ) : null
         }
-        title={
-          <Typography variant="h5" component="p">
-            {props.title}{" "}
-          </Typography>
-        }
+        title={<Typography variant="body1">{props.title} </Typography>}
       />
       <CardMedia
         sx={styles.media}
@@ -59,18 +66,20 @@ const MovieCard: React.FC<MovieCardProps> = (props) => {
         }
       />
       <CardContent>
-        <Grid container>
+        <Grid container alignItems="center">
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
+            <Box sx={styles.content}>
               <CalendarIcon fontSize="small" />
-              {props.release_date}
-            </Typography>
+              <Typography variant="subtitle1">{props.release_date}</Typography>
+            </Box>
           </Grid>
           <Grid item xs={6}>
-            <Typography variant="h6" component="p">
+            <Box sx={styles.content}>
               <StarRateIcon fontSize="small" />
-              {"  "} {props.vote_average}{" "}
-            </Typography>
+              <Typography variant="subtitle1">
+                {"  "} {props.vote_average}{" "}
+              </Typography>
+            </Box>
           </Grid>
         </Grid>
       </CardContent>
