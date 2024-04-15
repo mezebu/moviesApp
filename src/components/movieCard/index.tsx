@@ -19,7 +19,6 @@ import { Box } from "@mui/material";
 
 const styles = {
   card: {
-    maxWidth: 400,
     height: "100%",
     display: "flex",
     flexDirection: "column",
