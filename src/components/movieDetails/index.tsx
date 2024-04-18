@@ -26,7 +26,7 @@ const styles = {
   },
   fab: {
     position: "fixed",
-    top: 50,
+    bottom: 10,
     right: 2,
   },
 };
@@ -50,6 +50,20 @@ const MovieDetails: React.FC<MovieT> = (props) => {
           <Chip label="Genres" sx={styles.chipLabel} color="primary" />
         </li>
         {movie.genres.map((g) => (
+          <li key={g.name}>
+            <Chip label={g.name} />
+          </li>
+        ))}
+      </Paper>
+      <Paper component="ul" sx={styles.chipSet}>
+        <li>
+          <Chip
+            label="Production Country"
+            sx={styles.chipLabel}
+            color="primary"
+          />
+        </li>
+        {movie.production_countries.map((g) => (
           <li key={g.name}>
             <Chip label={g.name} />
           </li>
