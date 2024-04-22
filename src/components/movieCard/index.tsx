@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useContext } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -16,6 +16,8 @@ import { BaseMovie } from "../../types/interfaces";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import { Box } from "@mui/material";
+import { MoviesContext } from "../../contexts/moviesContext";
+import { ListedMovie } from "../../types/interfaces";
 
 const styles = {
   card: {
@@ -34,33 +36,34 @@ const styles = {
   },
 };
 
-interface MovieCardProps extends BaseMovie {
-  selectFavourite: (movieId: number) => void;
-}
+const MovieCard: React.FC<ListedMovie> = (props) => {
+  const movie = { ...props, favourite: false };
+  const { favourites, addToFavourites } = useContext(MoviesContext);
 
-const MovieCard: React.FC<MovieCardProps> = (props) => {
+  if (favourites.find((id) => id === movie.id)) movie.favourite = true;
+
   const handleAddToFavourite = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    props.selectFavourite(props.id);
+    addToFavourites(movie);
   };
 
   return (
     <Card sx={styles.card} variant="outlined">
       <CardHeader
         avatar={
-          props.favourite ? (
+          movie.favourite ? (
             <Avatar sx={styles.avatar}>
               <FavoriteIcon />
             </Avatar>
           ) : null
         }
-        title={<Typography variant="body1">{props.title} </Typography>}
+        title={<Typography variant="body1">{movie.title} </Typography>}
       />
       <CardMedia
         sx={styles.media}
         image={
-          props.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${props.poster_path}`
+          movie.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
             : img
         }
       />
@@ -69,14 +72,14 @@ const MovieCard: React.FC<MovieCardProps> = (props) => {
           <Grid item xs={6}>
             <Box sx={styles.content}>
               <CalendarIcon fontSize="small" />
-              <Typography variant="subtitle1">{props.release_date}</Typography>
+              <Typography variant="subtitle1">{movie.release_date}</Typography>
             </Box>
           </Grid>
           <Grid item xs={6}>
             <Box sx={styles.content}>
               <StarRateIcon fontSize="small" />
               <Typography variant="subtitle1">
-                {"  "} {props.vote_average}{" "}
+                {"  "} {movie.vote_average}{" "}
               </Typography>
             </Box>
           </Grid>
@@ -89,7 +92,7 @@ const MovieCard: React.FC<MovieCardProps> = (props) => {
         >
           <FavoriteIcon color="primary" fontSize="large" />
         </IconButton>
-        <Link to={`/movies/${props.id}`}>
+        <Link to={`/movies/${movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>
