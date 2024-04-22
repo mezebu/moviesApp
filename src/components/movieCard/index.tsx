@@ -23,7 +23,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
   },
-  media: { height: 0, paddingTop: "56.25%" }, // 16:9 aspect ratio
+  media: { height: 0, paddingTop: "60%" }, // 16:9 aspect ratio
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
@@ -65,23 +65,20 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
             : img
         }
       />
-      <CardContent>
-        <Grid container alignItems="center">
-          <Grid item xs={6}>
-            <Box sx={styles.content}>
-              <CalendarIcon fontSize="small" />
-              <Typography variant="subtitle1">{movie.release_date}</Typography>
-            </Box>
-          </Grid>
-          <Grid item xs={6}>
-            <Box sx={styles.content}>
-              <StarRateIcon fontSize="small" />
-              <Typography variant="subtitle1">
-                {"  "} {movie.vote_average}{" "}
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
+      <CardContent sx={{ display: "flex", justifyContent: "space-between" }}>
+        <Box sx={styles.content}>
+          <CalendarIcon fontSize="medium" />
+          <Typography variant="subtitle1" sx={{ ml: 1 }}>
+            {movie.release_date}
+          </Typography>
+        </Box>
+
+        <Box sx={styles.content}>
+          <StarRateIcon fontSize="medium" />
+          <Typography variant="subtitle1">
+            {"  "} {movie.vote_average}{" "}
+          </Typography>
+        </Box>
       </CardContent>
       <CardActions disableSpacing>
         {props.action(movie)}
