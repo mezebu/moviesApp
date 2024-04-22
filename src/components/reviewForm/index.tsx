@@ -1,53 +1,51 @@
-import React, { useContext, useState, ChangeEvent } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm, Controller } from "react-hook-form";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { MoviesContext } from "../../contexts/moviesContext";
-import { useNavigate } from "react-router-dom";
-import styles from "./styles";
-import ratings from "./ratingCategories";
-import { MovieT, Review } from "../../types/interfaces";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
+import { MoviesContext } from "../../contexts/moviesContext";
+import ratings from "./ratingCategories";
+import styles from "./styles";
+import { Review, MovieT } from "../../types/interfaces";
+
 const ReviewForm: React.FC<MovieT> = (props) => {
-  const defaultValues = {
-    defaultValues: {
-      author: "",
-      review: "",
-      agree: false,
-      rating: 3,
-      movieId: 0,
-    },
-  };
-
-  const {
-    control,
-    formState: { errors },
-    handleSubmit,
-    reset,
-  } = useForm<Review>(defaultValues);
-
   const navigate = useNavigate();
   const context = useContext(MoviesContext);
   const [rating, setRating] = useState(3);
   const [open, setOpen] = useState(false);
 
-  const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<Review>({
+    defaultValues: {
+      author: "",
+      content: "",
+      rating: 3,
+      movieId: 0,
+    },
+  });
+
+  const handleRatingChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRating(Number(event.target.value));
   };
 
-  const onSubmit: SubmitHandler<Review> = (review) => {
+  const onSubmit = (review: Review) => {
     review.movieId = props.id;
     review.rating = rating;
     context.addReview(props, review);
     setOpen(true);
   };
 
-  const handleSnackClose = () => {
+  const handleClose = () => {
     setOpen(false);
     navigate("/movies/favourites");
   };
@@ -58,41 +56,41 @@ const ReviewForm: React.FC<MovieT> = (props) => {
         Write a review
       </Typography>
       <Snackbar
-        sx={styles.snack}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={open}
-        onClose={handleSnackClose}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        sx={styles.snack}
       >
-        <Alert severity="success" variant="filled" onClose={handleSnackClose}>
+        <Alert severity="success" variant="filled" onClose={handleClose}>
           <Typography variant="h4">
             Thank you for submitting a review
           </Typography>
         </Alert>
       </Snackbar>
-      <form style={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
+      <Box
+        component="form"
+        sx={styles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        noValidate
+      >
         <Controller
           name="author"
           control={control}
           rules={{ required: "Name is required" }}
-          defaultValue=""
-          render={({ field: { onChange, value } }) => (
+          render={({ field }) => (
             <TextField
+              {...field}
               sx={{ width: "40ch" }}
               variant="outlined"
               margin="normal"
               required
-              onChange={onChange}
-              value={value}
-              id="author"
               label="Author's name"
               autoFocus
             />
           )}
         />
         {errors.author && (
-          <Typography variant="h6" component="p">
-            {errors.author.message}
-          </Typography>
+          <Typography variant="h6">{errors.author.message}</Typography>
         )}
         <Controller
           name="content"
@@ -101,35 +99,28 @@ const ReviewForm: React.FC<MovieT> = (props) => {
             required: "Review cannot be empty.",
             minLength: { value: 10, message: "Review is too short" },
           }}
-          defaultValue=""
-          render={({ field: { onChange, value } }) => (
+          render={({ field }) => (
             <TextField
+              {...field}
               variant="outlined"
               margin="normal"
               required
               fullWidth
-              value={value}
-              onChange={onChange}
-              label="Review text"
-              id="review"
               multiline
               minRows={10}
+              label="Review text"
             />
           )}
         />
         {errors.content && (
-          <Typography variant="h6" component="p">
-            {errors.content.message}
-          </Typography>
+          <Typography variant="h6">{errors.content.message}</Typography>
         )}
-
         <Controller
-          control={control}
           name="rating"
+          control={control}
           render={({ field }) => (
             <TextField
               {...field}
-              id="select-rating"
               select
               variant="outlined"
               label="Rating Select"
@@ -145,8 +136,7 @@ const ReviewForm: React.FC<MovieT> = (props) => {
             </TextField>
           )}
         />
-
-        <Box>
+        <Box sx={{ display: "flex", gap: 2, marginTop: 2 }}>
           <Button
             type="submit"
             variant="contained"
@@ -160,17 +150,12 @@ const ReviewForm: React.FC<MovieT> = (props) => {
             variant="contained"
             color="secondary"
             sx={styles.submit}
-            onClick={() => {
-              reset({
-                author: "",
-                content: "",
-              });
-            }}
+            onClick={() => reset()}
           >
             Reset
           </Button>
         </Box>
-      </form>
+      </Box>
     </Box>
   );
 };

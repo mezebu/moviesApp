@@ -16,6 +16,7 @@ const titleFiltering = {
   condition: titleFilter,
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const genreFiltering = {
   name: "genre",
   value: "0",
@@ -71,8 +72,8 @@ const FavouriteMoviesPage: React.FC = () => {
         action={(movie) => {
           return (
             <>
-              <RemoveFromFavourites {...movie} />
-              <WriteReview {...movie} />
+              <RemoveFromFavourites genre_ids={[]} {...movie} />
+              <WriteReview genre_ids={[]} {...movie} />
             </>
           );
         }}
