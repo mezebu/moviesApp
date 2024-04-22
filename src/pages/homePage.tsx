@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -10,6 +10,7 @@ import { DiscoverMovies, ListedMovie } from "../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import CustomPagination from "../components/pagination";
 
 const titleFiltering = {
   name: "title",
@@ -23,9 +24,11 @@ const genreFiltering = {
 };
 
 const HomePage: React.FC = () => {
+  const [page, setPage] = useState(1);
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    "discover",
-    getMovies
+    ["discover", page],
+    () => getMovies(page),
+    { keepPreviousData: true }
   );
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
@@ -65,6 +68,11 @@ const HomePage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+      />
+      <CustomPagination
+        currentPage={page}
+        totalPages={data ? data.total_pages : 1}
+        onPageChange={setPage}
       />
     </>
   );
