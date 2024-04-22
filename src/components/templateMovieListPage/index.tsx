@@ -11,10 +11,7 @@ const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = (props) => {
       <Header title={props.title} />
 
       <Grid item container spacing={1}>
-        <MovieList
-          selectFavourite={props.selectFavourite}
-          movies={props.movies}
-        />
+        <MovieList action={props.action} movies={props.movies} />
       </Grid>
     </Box>
   );
