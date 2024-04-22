@@ -51,11 +51,33 @@ export interface ListedMovie extends BaseMovie {
 export interface MovieListPageTemplateProps {
   movies: ListedMovie[];
   title: string;
-  selectFavourite: (m: number) => void;
+  action: (m: MovieT) => void;
 }
 
 export interface Review {
   id: string;
   content: string;
   author: string;
+}
+
+export interface GenreData {
+  genres: {
+    id: string;
+    name: string;
+  }[];
+}
+
+interface DiscoverMovies {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: BaseMovie[];
+}
+
+export interface Review {
+  author: string;
+  content: string;
+  agree: boolean;
+  rating: number;
+  movieId: number;
 }

@@ -4,10 +4,12 @@ import Drawer from "@mui/material/Drawer";
 import { ListedMovie } from "../../types/interfaces";
 import FilterButton from "../FilterButton/FilterButton";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const titleFilter = function (movie: ListedMovie, value: string) {
   return movie.title.toLowerCase().search(value.toLowerCase()) !== -1;
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const genreFilter = function (movie: ListedMovie, value: string) {
   const genreId = Number(value);
   return genreId > 0 ? movie.genre_ids.includes(genreId) : true;

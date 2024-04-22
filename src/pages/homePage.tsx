@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { getMovies } from "../api/tmdb-api";
 import useFiltering from "../hooks/useFiltering";
@@ -6,7 +6,10 @@ import MovieFilterUI, {
   titleFilter,
   genreFilter,
 } from "../components/movieFilterUI";
-import { ListedMovie } from "../types/interfaces";
+import { DiscoverMovies, ListedMovie } from "../types/interfaces";
+import { useQuery } from "react-query";
+import Spinner from "../components/spinner";
+import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 
 const titleFiltering = {
   name: "title",
@@ -20,20 +23,22 @@ const genreFiltering = {
 };
 
 const HomePage: React.FC = () => {
-  const [movies, setMovies] = useState<ListedMovie[]>([]);
-  const favourites = movies.filter((m) => m.favourite);
+  const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
+    "discover",
+    getMovies
+  );
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
   );
-  localStorage.setItem("favourites", JSON.stringify(favourites));
-  // New function
-  const addToFavourites = (movieId: number) => {
-    const updatedMovies = movies.map((m: ListedMovie) =>
-      m.id === movieId ? { ...m, favourite: true } : m
-    );
-    setMovies(updatedMovies);
-  };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <h1>{error.message}</h1>;
+  }
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
@@ -44,19 +49,17 @@ const HomePage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
-  useEffect(() => {
-    getMovies().then((movies) => {
-      setMovies(movies);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
+
   return (
     <>
       <PageTemplate
         title="Discover Movies"
         movies={displayedMovies}
-        selectFavourite={addToFavourites}
+        action={(movie: ListedMovie) => {
+          return <AddToFavouritesIcon {...movie} />;
+        }}
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
