@@ -31,7 +31,7 @@ const MovieHeader: React.FC<MovieT> = (props) => {
   }, [props.id]);
 
   return (
-    <Paper component="div" sx={styles.root}>
+    <Paper elevation={0} variant="outlined" sx={styles.root}>
       <IconButton aria-label="go back">
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
