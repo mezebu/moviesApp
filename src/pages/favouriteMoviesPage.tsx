@@ -72,8 +72,8 @@ const FavouriteMoviesPage: React.FC = () => {
         action={(movie) => {
           return (
             <>
-              <RemoveFromFavourites genre_ids={[]} {...movie} />
-              <WriteReview genre_ids={[]} {...movie} />
+              <RemoveFromFavourites {...movie} />
+              <WriteReview {...movie} />
             </>
           );
         }}
