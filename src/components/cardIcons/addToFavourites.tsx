@@ -3,6 +3,7 @@ import { MoviesContext } from "../../contexts/moviesContext";
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { ListedMovie } from "../../types/interfaces";
+import { Tooltip } from "@mui/material";
 
 const AddToFavouritesIcon: React.FC<ListedMovie> = (movie) => {
   const context = useContext(MoviesContext);
@@ -12,9 +13,14 @@ const AddToFavouritesIcon: React.FC<ListedMovie> = (movie) => {
     context.addToFavourites(movie);
   };
   return (
-    <IconButton aria-label="add to favorites" onClick={onUserSelect}>
-      <FavoriteIcon color="primary" fontSize="large" />
-    </IconButton>
+    <Tooltip title="Add to favorites">
+      <IconButton aria-label="add to favorites" onClick={onUserSelect}>
+        <FavoriteIcon
+          color={movie.favourite ? "error" : "disabled"}
+          fontSize="large"
+        />
+      </IconButton>
+    </Tooltip>
   );
 };
 
