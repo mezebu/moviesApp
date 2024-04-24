@@ -4,15 +4,13 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import CardHeader from "@mui/material/CardHeader";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import InfoIcon from "@mui/icons-material/Info";
 import img from "../../images/film-poster-placeholder.png";
 import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
-import { Box } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { ListedMovie } from "../../types/interfaces";
 
@@ -22,7 +20,7 @@ const styles = {
     display: "flex",
     flexDirection: "column",
   },
-  media: { height: 0, paddingTop: "60%" }, // 16:9 aspect ratio
+  media: { height: 0, paddingTop: "60%" },
   avatar: {
     backgroundColor: "rgb(255, 0, 0)",
   },
@@ -47,13 +45,6 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
   return (
     <Card sx={styles.card} variant="outlined">
       <CardHeader
-        avatar={
-          movie.favourite ? (
-            <Avatar sx={styles.avatar}>
-              <FavoriteIcon />
-            </Avatar>
-          ) : null
-        }
         title={<Typography variant="body1">{movie.title} </Typography>}
       />
       <CardMedia
@@ -82,9 +73,11 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
       <CardActions disableSpacing>
         {props.action(movie)}
         <Link to={`/movies/${movie.id}`}>
-          <Button variant="outlined" size="medium" color="primary">
-            More Info ...
-          </Button>
+          <Tooltip title="More info">
+            <IconButton aria-label="add to favorites">
+              <InfoIcon fontSize="large" color="primary" />
+            </IconButton>
+          </Tooltip>
         </Link>
       </CardActions>
     </Card>

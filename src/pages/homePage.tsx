@@ -30,6 +30,7 @@ const HomePage: React.FC = () => {
     () => getMovies(page),
     { keepPreviousData: true }
   );
+
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]

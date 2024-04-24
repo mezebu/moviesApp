@@ -1,19 +1,14 @@
 import React from "react";
 import MovieHeader from "../headerMovie";
-import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import { getMovieImages } from "../../api/tmdb-api";
 import { MovieImage, MovieT } from "../../types/interfaces";
 import { useQuery } from "react-query";
 import Spinner from "../spinner";
+import Box from "@mui/material/Box";
 
 const styles = {
-  gridListRoot: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-  },
   gridListTile: {
     width: 450,
     height: "100vh",
@@ -42,34 +37,26 @@ const TemplateMoviePage: React.FC<TemplateMoviePageProps> = (props) => {
 
   const images = data as MovieImage[];
   return (
-    <>
+    <Box sx={{ padding: 5 }}>
       <MovieHeader {...movie} />
 
-      <Grid container spacing={5} style={{ padding: "15px" }}>
-        <Grid item xs={3}>
-          <div>
-            <ImageList cols={1}>
-              {images.map((image: MovieImage) => (
-                <ImageListItem
-                  key={image.file_path}
-                  sx={styles.gridListTile}
-                  cols={1}
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
-                    alt={"Image alternative"}
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </div>
-        </Grid>
+      <Box>{children}</Box>
 
-        <Grid item xs={9}>
-          {children}
-        </Grid>
-      </Grid>
-    </>
+      <ImageList cols={3}>
+        {images.map((image: MovieImage) => (
+          <ImageListItem
+            key={image.file_path}
+            sx={styles.gridListTile}
+            cols={1}
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
+              alt={"Image alternative"}
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+    </Box>
   );
 };
 

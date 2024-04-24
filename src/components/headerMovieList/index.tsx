@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const title = props.title;
 
   return (
-    <Paper component="div" sx={styles.root}>
+    <Paper variant="outlined" elevation={0} sx={styles.root}>
       <IconButton aria-label="go back">
         <ArrowBackIcon color="primary" fontSize="large" />
       </IconButton>
