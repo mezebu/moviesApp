@@ -36,7 +36,7 @@ const SiteHeader: React.FC = () => {
     { label: "Home", path: "/" },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Favorites", path: "/movies/favourites" },
-    { label: "Option 4", path: "/" },
+    { label: "Tv Shows", path: "/movies/tv" },
   ];
 
   const handleMenuSelect = (pageURL: string) => {
@@ -96,6 +96,7 @@ const SiteHeader: React.FC = () => {
                   </MenuItem>
                 ))}
               </Menu>
+              <NightModeToggle />
             </>
           ) : (
             <>
