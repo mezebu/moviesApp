@@ -51,7 +51,7 @@ export interface ListedMovie extends BaseMovie {
 export interface MovieListPageTemplateProps {
   movies: ListedMovie[];
   title: string;
-  action: (m: MovieT) => void;
+  action: (m: ListedMovie) => React.ReactNode;
 }
 
 export interface Review {
@@ -80,4 +80,50 @@ export interface Review {
   agree: boolean;
   rating: number;
   movieId: number;
+}
+
+// Tv Shows
+
+export interface BaseTVShow {
+  backdrop_path: string | null;
+  first_air_date: string;
+  genre_ids: number[];
+  id: number;
+  name: string;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string | null;
+  vote_average: number;
+  vote_count: number;
+}
+
+interface DiscoverTvShows {
+  page: number;
+  total_pages: number;
+  total_results: number;
+  results: BaseTVShow[];
+}
+
+export interface BaseTvShowList {
+  shows: BaseTVShow[];
+}
+
+export interface ListedTvShow extends BaseTVShow {
+  genre_ids: number[];
+}
+
+export interface ShowT extends BaseTVShow {
+  genres: {
+    id: number;
+    name: string;
+  }[];
+}
+
+export interface TvListPageTemplateProps {
+  title: string;
+  shows: ListedTvShow[];
+  action: (m: ShowT) => void;
 }
