@@ -22,14 +22,7 @@ const TvCard: React.FC<TvCardProps> = ({ show }) => {
   return (
     <Card sx={{ height: "100%" }} variant="outlined" elevation={0}>
       <CardHeader
-        /*  avatar={
-          show.favourite ? (
-            <Avatar>
-              <FavoriteIcon />
-            </Avatar>
-          ) : null
-        } */
-        title={<Typography variant="subtitle1">{show.name}</Typography>}
+        title={<Typography variant="subtitle2">{show.name}</Typography>}
       />
       <CardMedia
         component="img"
