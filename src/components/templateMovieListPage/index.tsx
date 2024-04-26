@@ -7,7 +7,7 @@ import { Box } from "@mui/material";
 
 const MovieListPageTemplate: React.FC<MovieListPageTemplateProps> = (props) => {
   return (
-    <Box sx={{ padding: 5 }}>
+    <Box>
       <Header title={props.title} />
 
       <Grid item container spacing={1}>
