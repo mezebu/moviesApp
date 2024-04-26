@@ -5,11 +5,20 @@ import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import StarRate from "@mui/icons-material/StarRate";
 import Typography from "@mui/material/Typography";
-import { MovieT } from "../../types/interfaces";
+import { CastMember, MovieT } from "../../types/interfaces";
 import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
+import {
+  Avatar,
+  Box,
+  CardActionArea,
+  CardHeader,
+  Stack,
+  Tooltip,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   chipSet: {
@@ -31,9 +40,18 @@ const styles = {
   },
 };
 
-const MovieDetails: React.FC<MovieT> = (props) => {
-  const movie = props;
+interface MovieDetailsProps {
+  movie: MovieT;
+  cast: CastMember[]; // Ensure CastMember type is imported
+}
+
+const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, cast }) => {
+  const navigate = useNavigate(); // Hook to navigate programmatically
   const [drawerOpen, setDrawerOpen] = useState(false); // New
+
+  const handleActorClick = (actorId: number) => {
+    navigate(`/actor/${actorId}`); // Navigate to actor profile page
+  };
 
   return (
     <>
@@ -80,6 +98,36 @@ const MovieDetails: React.FC<MovieT> = (props) => {
           label={`${movie.vote_average} (${movie.vote_count}`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
+      </Paper>
+      <Paper variant="outlined" sx={styles.chipSet}>
+        <Typography component="div" variant="h5" fontWeight="bold">
+          Cast
+        </Typography>
+        <Stack direction="row" spacing={1} flexWrap="wrap">
+          {cast.map((member) => (
+            <Tooltip
+              key={member.id}
+              title={`${member.name} as ${member.character}`}
+              placement="top"
+            >
+              <Box onClick={() => handleActorClick(member.id)} sx={{ mt: 5 }}>
+                <CardActionArea>
+                  <CardHeader
+                    avatar={
+                      member.profile_path ? (
+                        <Avatar
+                          alt={member.name}
+                          src={`https://image.tmdb.org/t/p/w500/${member.profile_path}`}
+                        />
+                      ) : null
+                    }
+                    title={<Typography>{member.name}</Typography>}
+                  />
+                </CardActionArea>
+              </Box>
+            </Tooltip>
+          ))}
+        </Stack>
       </Paper>
       <Fab
         color="secondary"
