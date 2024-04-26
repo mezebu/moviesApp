@@ -19,7 +19,7 @@ const styles = {
     flexWrap: "wrap",
     listStyle: "none",
     padding: 1.5,
-    margin: 0,
+    my: 0.5,
   },
   chipLabel: {
     margin: 0.5,
@@ -45,7 +45,7 @@ const MovieDetails: React.FC<MovieT> = (props) => {
         {movie.overview}
       </Typography>
 
-      <Paper component="ul" sx={styles.chipSet}>
+      <Paper variant="outlined" component="ul" sx={styles.chipSet}>
         <li>
           <Chip label="Genres" sx={styles.chipLabel} color="primary" />
         </li>
@@ -55,7 +55,7 @@ const MovieDetails: React.FC<MovieT> = (props) => {
           </li>
         ))}
       </Paper>
-      <Paper component="ul" sx={styles.chipSet}>
+      <Paper variant="outlined" component="ul" sx={styles.chipSet}>
         <li>
           <Chip
             label="Production Country"
@@ -69,7 +69,7 @@ const MovieDetails: React.FC<MovieT> = (props) => {
           </li>
         ))}
       </Paper>
-      <Paper component="ul" sx={styles.chipSet}>
+      <Paper variant="outlined" component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
           icon={<MonetizationIcon />}
