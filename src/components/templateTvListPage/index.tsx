@@ -6,7 +6,7 @@ import { TvListPageTemplateProps } from "../../types/interfaces";
 
 const TvListPageTemplate: React.FC<TvListPageTemplateProps> = (props) => {
   return (
-    <Box sx={{ padding: 5 }}>
+    <Box>
       <Header title={props.title} />
 
       <Grid item container spacing={1}>
