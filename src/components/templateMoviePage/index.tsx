@@ -8,13 +8,6 @@ import { useQuery } from "react-query";
 import Spinner from "../spinner";
 import Box from "@mui/material/Box";
 
-const styles = {
-  gridListTile: {
-    width: 450,
-    height: "100vh",
-  },
-};
-
 interface TemplateMoviePageProps {
   movie: MovieT;
   children: React.ReactElement;
@@ -37,18 +30,14 @@ const TemplateMoviePage: React.FC<TemplateMoviePageProps> = (props) => {
 
   const images = data as MovieImage[];
   return (
-    <Box sx={{ padding: 5 }}>
+    <Box>
       <MovieHeader {...movie} />
 
       <Box>{children}</Box>
 
       <ImageList cols={3}>
         {images.map((image: MovieImage) => (
-          <ImageListItem
-            key={image.file_path}
-            sx={styles.gridListTile}
-            cols={1}
-          >
+          <ImageListItem key={image.file_path}>
             <img
               src={`https://image.tmdb.org/t/p/w500/${image.file_path}`}
               alt={"Image alternative"}
