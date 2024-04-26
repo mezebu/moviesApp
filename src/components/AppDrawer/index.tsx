@@ -15,12 +15,12 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { useMatch, useResolvedPath, NavLink } from "react-router-dom";
 import NightModeToggle from "../NightModeToggle";
-import { green } from "@mui/material/colors";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import UpcomingRoundedIcon from "@mui/icons-material/UpcomingRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import LiveTvRoundedIcon from "@mui/icons-material/LiveTvRounded";
 import { Link } from "@mui/material";
+import { green } from "@mui/material/colors";
 
 const drawerWidth = 240;
 
@@ -116,13 +116,13 @@ export default function AppDrawer(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: { md: "flex" } }}>
       <CssBaseline />
       <AppBar
         position="fixed"
         elevation={0}
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
         }}
       >
@@ -132,7 +132,7 @@ export default function AppDrawer(props: Props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
+            sx={{ mr: 2, display: { md: "none" } }}
           >
             <MenuIcon />
           </IconButton>
@@ -158,7 +158,7 @@ export default function AppDrawer(props: Props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -170,7 +170,7 @@ export default function AppDrawer(props: Props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "none", md: "block" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -186,7 +186,7 @@ export default function AppDrawer(props: Props) {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
         }}
       >
         <Toolbar />
