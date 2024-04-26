@@ -19,6 +19,7 @@ import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import UpcomingRoundedIcon from "@mui/icons-material/UpcomingRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import LiveTvRoundedIcon from "@mui/icons-material/LiveTvRounded";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import { Link } from "@mui/material";
 import { green } from "@mui/material/colors";
 
@@ -62,9 +63,9 @@ export default function AppDrawer(props: Props) {
       icon: <FavoriteRoundedIcon />,
     },
     {
-      label: "Popular Movies",
-      path: "/movies/popular",
-      icon: <LiveTvRoundedIcon />,
+      label: "Top Rated",
+      path: "/movies/top",
+      icon: <TrendingUpIcon />,
     },
     { label: "Tv Shows", path: "/movies/tv", icon: <LiveTvRoundedIcon /> },
   ];
