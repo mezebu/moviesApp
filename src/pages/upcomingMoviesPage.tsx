@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import PageTemplate from "../components/templateMovieListPage";
 import MovieFilterUI, {
@@ -10,6 +10,7 @@ import AddToMustWatch from "../components/cardIcons/addToMustWatch";
 import useFiltering from "../hooks/useFiltering";
 import { getUpcomingMovies } from "../api/tmdb-api";
 import { DiscoverMovies, ListedMovie } from "../types/interfaces";
+import CustomPagination from "../components/pagination";
 
 const filterConfig = [
   { name: "title", value: "", condition: titleFilter },
@@ -17,9 +18,11 @@ const filterConfig = [
 ];
 
 const UpcomingMoviesPage: React.FC = () => {
+  const [page, setPage] = useState(1);
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    "upcoming",
-    getUpcomingMovies
+    ["upcoming", page],
+    () => getUpcomingMovies(page),
+    { keepPreviousData: true }
   );
 
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
@@ -56,6 +59,11 @@ const UpcomingMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues.find((f) => f.name === "title")?.value || ""}
         genreFilter={filterValues.find((f) => f.name === "genre")?.value || ""}
+      />
+      <CustomPagination
+        currentPage={page}
+        totalPages={data ? data.total_pages : 1}
+        onPageChange={setPage}
       />
     </>
   );
