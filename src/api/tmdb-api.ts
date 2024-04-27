@@ -84,11 +84,11 @@ export const getMovieReviews = (id: string | number) => {
     });
 };
 
-export const getUpcomingMovies = () => {
+export const getUpcomingMovies = (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/upcoming?api_key=${
       import.meta.env.VITE_TMDB_KEY
-    }&language=en-US&page=1`
+    }&language=en-US&page=${page}`
   )
     .then((response) => {
       if (!response.ok)
@@ -120,11 +120,11 @@ export const getTvShows = (page = 1) => {
     });
 };
 
-export const getTopRatedMovies = () => {
+export const getTopRatedMovies = (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${
       import.meta.env.VITE_TMDB_KEY
-    }&language=en-US&include_adult=false&include_video=false&page=1`
+    }&language=en-US&include_adult=false&include_video=false&page=${page}`
   )
     .then((response) => {
       if (!response.ok)
@@ -148,6 +148,24 @@ export const getMovieCredits = (id: string) => {
       if (!response.ok)
         throw new Error(
           `Unable to fetch movie credits. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getActors = (page = 1) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/popular?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US&include_adult=false&include_video=false&page=${page}`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch actors. Response status: ${response.status}`
         );
       return response.json();
     })
