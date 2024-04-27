@@ -9,6 +9,8 @@ import useFiltering from "../hooks/useFiltering";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import PageTemplate from "../components/templateMovieListPage";
 import Spinner from "../components/spinner";
+import { useState } from "react";
+import CustomPagination from "../components/pagination";
 
 const filterConfig = [
   { name: "title", value: "", condition: titleFilter },
@@ -16,9 +18,11 @@ const filterConfig = [
 ];
 
 const TopRatedMoviesPage: React.FC = () => {
+  const [page, setPage] = useState(1);
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    "top_rated",
-    getTopRatedMovies
+    ["top_rated", page],
+    () => getTopRatedMovies(page),
+    { keepPreviousData: true }
   );
 
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
@@ -56,6 +60,11 @@ const TopRatedMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues.find((f) => f.name === "title")?.value || ""}
         genreFilter={filterValues.find((f) => f.name === "genre")?.value || ""}
+      />
+      <CustomPagination
+        currentPage={page}
+        totalPages={data ? data.total_pages : 1}
+        onPageChange={setPage}
       />
     </div>
   );
