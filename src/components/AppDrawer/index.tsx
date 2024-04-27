@@ -20,6 +20,7 @@ import UpcomingRoundedIcon from "@mui/icons-material/UpcomingRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import LiveTvRoundedIcon from "@mui/icons-material/LiveTvRounded";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import PeopleIcon from "@mui/icons-material/People";
 import { Link } from "@mui/material";
 import { green } from "@mui/material/colors";
 
@@ -52,6 +53,7 @@ export default function AppDrawer(props: Props) {
 
   const menuOptions = [
     { label: "Home", path: "/", icon: <HomeRoundedIcon /> },
+    { label: "Actors", path: "/movies/actors", icon: <PeopleIcon /> },
     {
       label: "Upcoming",
       path: "/movies/upcoming",
