@@ -1,11 +1,11 @@
+import React from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
-import React from "react";
+import Typography from "@mui/material/Typography";
 import { KnownFor } from "../../types/interfaces";
-import { Typography } from "@mui/material";
 
 interface KnownForProps {
   movies: KnownFor[];
@@ -18,12 +18,12 @@ const KnownForList: React.FC<KnownForProps> = ({ movies }) => {
         <ListItem key={movie.id} alignItems="flex-start">
           <ListItemAvatar>
             <Avatar
-              alt="Remy Sharp"
+              alt="Movie Poster"
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             />
           </ListItemAvatar>
           <ListItemText
-            primary={`${movie.original_title}`}
+            primary={movie.original_title}
             secondary={
               <React.Fragment>
                 <Typography
@@ -32,9 +32,9 @@ const KnownForList: React.FC<KnownForProps> = ({ movies }) => {
                   variant="body2"
                   color="text.primary"
                 >
-                  Release Date: {"  "}
+                  Release Date:{" "}
                 </Typography>
-                {`${movie.release_date}`}
+                {movie.release_date}
               </React.Fragment>
             }
           />
