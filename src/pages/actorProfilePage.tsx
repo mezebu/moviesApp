@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getActorDetails } from "../api/tmdb-api"; // You might need to implement this API call
 import Spinner from "../components/spinner";
-import { Actor } from "../types/interfaces";
+import { Cast } from "../types/interfaces";
 import {
   Box,
   Button,
@@ -22,7 +22,7 @@ const ActorProfilePage: React.FC = () => {
     error,
     isLoading,
     isError,
-  } = useQuery<Actor, Error>(["actor", id], () => getActorDetails(id || ""));
+  } = useQuery<Cast, Error>(["actor", id], () => getActorDetails(id || ""));
 
   if (isLoading) return <Spinner />;
   if (isError) {
