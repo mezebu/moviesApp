@@ -177,6 +177,7 @@ export interface Actor {
   original_name: string;
   popularity: number;
   profile_path: string;
+  favourite?: boolean;
 }
 
 export interface ActorResponse {
