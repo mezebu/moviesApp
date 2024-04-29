@@ -23,6 +23,7 @@ import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import PeopleIcon from "@mui/icons-material/People";
 import { Link } from "@mui/material";
 import { green } from "@mui/material/colors";
+import SearchInput from "../SearchInput";
 
 const drawerWidth = 240;
 
@@ -140,6 +141,9 @@ export default function AppDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
+          <Box>
+            <SearchInput />
+          </Box>
           <Box>
             <NightModeToggle />
           </Box>
