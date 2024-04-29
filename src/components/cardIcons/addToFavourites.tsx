@@ -16,7 +16,7 @@ const AddToFavouritesIcon: React.FC<ListedMovie> = (movie) => {
     <Tooltip title="Add to favorites">
       <IconButton aria-label="add to favorites" onClick={onUserSelect}>
         <FavoriteIcon
-          color={movie.favourite ? "error" : "disabled"}
+          color={movie.favourite ? "error" : "primary"}
           fontSize="large"
         />
       </IconButton>
