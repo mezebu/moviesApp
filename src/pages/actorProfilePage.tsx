@@ -1,19 +1,48 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getActorDetails } from "../api/tmdb-api"; // You might need to implement this API call
-import Spinner from "../components/spinner";
+import { getActorDetails } from "../api/tmdb-api";
 import { Cast } from "../types/interfaces";
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-  Link,
-  Typography,
-} from "@mui/material";
+
+import Spinner from "../components/spinner";
+
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+
+import { styled } from "@mui/material/styles";
+
+const StyledCard = styled(Card)({
+  borderRadius: "1rem",
+  boxShadow: "none",
+  position: "relative",
+  minWidth: 200,
+  minHeight: 650,
+  "&:after": {
+    content: '""',
+    display: "block",
+    position: "absolute",
+    width: "100%",
+    height: "64%",
+    bottom: 0,
+    zIndex: 1,
+    background: "linear-gradient(to top, #000, rgba(0,0,0,0))",
+  },
+});
+const StyledCardMedia = styled(CardMedia)({
+  position: "absolute",
+  width: "100%",
+  height: "100%",
+  top: 0,
+  left: 0,
+  zIndex: 0,
+  backgroundPosition: "top",
+});
 
 const ActorProfilePage: React.FC = () => {
   const { id } = useParams();
@@ -32,50 +61,29 @@ const ActorProfilePage: React.FC = () => {
   return (
     <div>
       {actor && (
-        <Box style={{ margin: 16 }}>
-          <Card
-            elevation={0}
-            variant="outlined"
-            style={{ maxWidth: 500, margin: "auto" }}
-          >
-            <CardMedia
-              component="img"
-              height="500"
-              image={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
-              alt={actor.name}
-              style={{ objectFit: "cover" }}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h4" component="div">
-                {actor.name}
-              </Typography>
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <Typography variant="body1">
+        <Grid container>
+          <Grid item md={6} xs={12}>
+            <StyledCard>
+              <StyledCardMedia
+                image={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+              />
+            </StyledCard>
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <Box sx={{ p: 2 }}>
+              <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Box>
+                  <Typography gutterBottom variant="h5" fontWeight="bold">
+                    {actor.name}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">
                     Birthday: {actor.birthday || "N/A"}
                   </Typography>
-                  <Typography variant="body1">
-                    Died: {actor.deathday || "N/A"}
-                  </Typography>
-                  <Typography variant="body1">
-                    Gender: {actor.gender === 1 ? "Female" : "Male"}
-                  </Typography>
-                  <Typography variant="body1">
-                    Popularity: {actor.popularity.toFixed(2)}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  {actor.homepage && (
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      href={actor.homepage}
-                      target="_blank"
-                    >
-                      Visit Homepage
-                    </Button>
-                  )}
-                  <Typography variant="body1">
+                  <Typography gutterBottom variant="subtitle2">
                     IMDb:{" "}
                     <Link
                       href={`https://www.imdb.com/name/${actor.imdb_id}`}
@@ -84,36 +92,71 @@ const ActorProfilePage: React.FC = () => {
                       {actor.imdb_id}
                     </Link>
                   </Typography>
-                  <Typography variant="body1">
+                  <Typography gutterBottom variant="subtitle2">
+                    Died: {actor.deathday || "N/A"}
+                  </Typography>
+                </Box>
+
+                <Box>
+                  <Typography gutterBottom variant="subtitle2">
+                    Gender: {actor.gender === 1 ? "Female" : "Male"}
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    Popularity: {actor.popularity.toFixed(2)}
+                  </Typography>
+                  {actor.homepage && (
+                    <Typography gutterBottom variant="subtitle2">
+                      <Link
+                        color="primary"
+                        href={actor.homepage}
+                        target="_blank"
+                      >
+                        Visit website
+                      </Link>
+                    </Typography>
+                  )}
+                  <Typography gutterBottom variant="subtitle2">
                     Known For: {actor.known_for_department}
                   </Typography>
-                  <Typography variant="body1">
+                  <Typography gutterBottom variant="subtitle2">
                     Birthplace: {actor.place_of_birth}
                   </Typography>
-                  <Typography variant="body1">
-                    Also known as: {actor.also_known_as.join(", ")}
-                  </Typography>
-                </Grid>
-              </Grid>
+                </Box>
+              </Stack>
+              <Divider />
               <Typography variant="body2" style={{ marginTop: 12 }}>
                 Biography: {actor.biography}
               </Typography>
-              <Typography variant="body2">
-                Adult: {actor.adult ? "Yes" : "No"}
+            </Box>
+
+            <Box sx={{ p: 2 }}>
+              <Box>
+                <Typography gutterBottom variant="subtitle2">
+                  Also known as: {actor.also_known_as.join(", ")}
+                </Typography>
+              </Box>
+              <Typography gutterBottom variant="subtitle2">
+                <Link
+                  color="primary"
+                  href={`https://www.imdb.com/name/${actor.imdb_id}`}
+                  target="_blank"
+                >
+                  View IMDb Profile
+                </Link>
               </Typography>
-            </CardContent>
-            <CardActions>
-              <Button
-                size="small"
-                color="primary"
-                href={`https://www.imdb.com/name/${actor.imdb_id}`}
-                target="_blank"
-              >
-                View IMDb Profile
-              </Button>
-            </CardActions>
-          </Card>
-        </Box>
+              <Typography gutterBottom variant="body2">
+                Adult
+              </Typography>
+              <Stack direction="row" spacing={1}>
+                <Chip
+                  color="primary"
+                  label={`${actor.adult ? "Yes" : "No"}`}
+                  size="small"
+                />
+              </Stack>
+            </Box>
+          </Grid>
+        </Grid>
       )}
     </div>
   );
