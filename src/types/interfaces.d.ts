@@ -104,7 +104,7 @@ interface DiscoverTvShows {
   page: number;
   total_pages: number;
   total_results: number;
-  results: BaseTVShow[];
+  results: BaseTVShow[] | Actor[] | BaseTVShow;
 }
 
 export interface BaseTvShowList {
@@ -143,7 +143,7 @@ export interface CastMember {
   order: number;
 }
 
-export interface Actor {
+export interface Cast {
   adult: boolean;
   also_known_as: string[];
   biography: string;
@@ -158,6 +158,8 @@ export interface Actor {
   place_of_birth: string;
   popularity: number;
   profile_path: string | null;
+  favourite?: boolean;
+  known_for: KnownFor[];
 }
 
 export interface MovieCredits {
@@ -165,7 +167,7 @@ export interface MovieCredits {
   cast: CastMember[];
 }
 
-export interface Person {
+export interface Actor {
   adult: boolean;
   gender: number;
   id: number;
@@ -177,11 +179,17 @@ export interface Person {
   profile_path: string;
 }
 
-export interface PersonResponse {
+export interface ActorResponse {
   page: number;
   total_results: number;
   total_pages: number;
-  results: Person[];
+  results: Actor[];
+}
+
+export interface ActorListPageTemplateProps {
+  actors: Actor[];
+  title: string;
+  action: (m: Actor) => React.ReactNode;
 }
 
 export interface KnownFor {
