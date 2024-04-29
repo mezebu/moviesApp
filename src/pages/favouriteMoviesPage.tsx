@@ -2,13 +2,15 @@ import React, { useContext } from "react";
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
-import { getMovie } from "../api/tmdb-api";
+import { getActorDetails, getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 import useFiltering from "../hooks/useFiltering";
 import MovieFilterUI, { titleFilter } from "../components/movieFilterUI";
 import { MovieT } from "../types/interfaces";
 import RemoveFromFavourites from "../components/cardIcons/removeFromFavourites";
 import WriteReview from "../components/cardIcons/writeReview";
+import RemoveActorsFromFavouritesIcon from "../components/cardIcons/removeActorsFromFavourites";
+import ActorListPageTemplate from "../components/templateActorListPage";
 
 const titleFiltering = {
   name: "title",
@@ -30,7 +32,8 @@ export const genreFiltering = {
 };
 
 const FavouriteMoviesPage: React.FC = () => {
-  const { favourites: movieIds } = useContext(MoviesContext);
+  const { favourites: movieIds, favouriteActors: actorIds } =
+    useContext(MoviesContext);
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
     [titleFiltering, genreFiltering]
@@ -45,15 +48,30 @@ const FavouriteMoviesPage: React.FC = () => {
       };
     })
   );
+
+  const favouriteActorQueries = useQueries(
+    actorIds.map((actorId) => {
+      return {
+        queryKey: ["actor", actorId],
+        queryFn: () => getActorDetails(actorId.toString()),
+      };
+    })
+  );
+
   // Check if any of the parallel queries is still loading.
-  const isLoading = favouriteMovieQueries.find((m) => m.isLoading === true);
+  const isLoading =
+    favouriteMovieQueries.some((m) => m.isLoading) ||
+    favouriteActorQueries.some((a) => a.isLoading);
 
   if (isLoading) {
     return <Spinner />;
   }
 
   const allFavourites = favouriteMovieQueries.map((q) => q.data);
+  const allActorFavourites = favouriteActorQueries.map((q) => q.data);
+
   const displayMovies = allFavourites ? filterFunction(allFavourites) : [];
+  const displayActors = allActorFavourites ? allActorFavourites : [];
 
   const changeFilterValues = (type: string, value: string) => {
     const changedFilter = { name: type, value: value };
@@ -74,6 +92,17 @@ const FavouriteMoviesPage: React.FC = () => {
             <>
               <RemoveFromFavourites {...movie} />
               <WriteReview {...movie} />
+            </>
+          );
+        }}
+      />
+      <ActorListPageTemplate
+        title="Favourite Actors"
+        actors={displayActors}
+        action={(actor) => {
+          return (
+            <>
+              <RemoveActorsFromFavouritesIcon {...actor} />
             </>
           );
         }}
