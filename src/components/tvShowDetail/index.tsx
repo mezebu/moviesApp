@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TVShowDetail, TvCastMember } from "../../types/interfaces";
 import Avatar from "@mui/material/Avatar";
@@ -10,6 +10,8 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+import SortIcon from "@mui/icons-material/Sort";
 
 interface TvShowDetailsProps {
   show: TVShowDetail;
@@ -18,6 +20,15 @@ interface TvShowDetailsProps {
 
 const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
   const navigate = useNavigate();
+  const [sortAsc, setSortAsc] = useState(true);
+
+  const toggleSortOrder = () => {
+    setSortAsc(!sortAsc);
+  };
+
+  const sortedCast = sortAsc
+    ? [...cast].sort((a, b) => a.name.localeCompare(b.name))
+    : [...cast].sort((a, b) => b.name.localeCompare(a.name));
 
   const handleActorClick = (actorId: number) => {
     navigate(`/actor/${actorId}`);
@@ -93,10 +104,15 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
       </Stack>
       <Divider>
         <Chip label="Cast" size="medium" color="primary" />
+        <Tooltip title="Sort Cast">
+          <IconButton onClick={toggleSortOrder} aria-label="sort cast">
+            <SortIcon />
+          </IconButton>
+        </Tooltip>
       </Divider>
 
       <Stack direction="row" spacing={1} flexWrap="wrap">
-        {cast.map((member) => (
+        {sortedCast.map((member) => (
           <Tooltip
             key={member.id}
             title={`${member.name} as ${member.character}`}
