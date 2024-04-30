@@ -3,8 +3,9 @@ import { getTvShows } from "../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../components/spinner";
 import TvListPageTemplate from "../components/templateTvListPage";
-import { DiscoverTvShows } from "../types/interfaces";
+import { BaseTVShow, DiscoverTvShows } from "../types/interfaces";
 import CustomPagination from "../components/pagination";
+import AddShowsToFavouritesIcon from "../components/cardIcons/addShowsToFavourites";
 
 const TvShowsPage: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -26,7 +27,13 @@ const TvShowsPage: React.FC = () => {
 
   return (
     <div>
-      <TvListPageTemplate title="Tv Shows" shows={shows} />
+      <TvListPageTemplate
+        title="Tv Shows"
+        shows={shows}
+        action={(show: BaseTVShow) => {
+          return <AddShowsToFavouritesIcon {...show} />;
+        }}
+      />
       <CustomPagination
         currentPage={page}
         totalPages={data ? data.total_pages : 1}

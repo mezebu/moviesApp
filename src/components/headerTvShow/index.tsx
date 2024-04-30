@@ -3,8 +3,8 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { MovieT, ListedMovie } from "../../types/interfaces";
-import { Avatar } from "@mui/material";
+import { ListedMovie, ShowT } from "../../types/interfaces";
+import { Avatar, Link } from "@mui/material";
 import { red } from "@mui/material/colors";
 
 const styles = {
@@ -17,7 +17,7 @@ const styles = {
   },
 };
 
-const MovieHeader: React.FC<MovieT> = (props) => {
+const TvShowHeader: React.FC<ShowT> = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
@@ -36,11 +36,11 @@ const MovieHeader: React.FC<MovieT> = (props) => {
       )}
 
       <Typography variant="h4" component="h3">
-        {props.title}
+        {props.name}
         {"   "}
-        <a href={props.homepage}>
+        <Link href={`${props.homepage}`} target="_blank" rel="noreferrer">
           <HomeIcon color="primary" fontSize="large" />
-        </a>
+        </Link>
         <br />
         <span>{`${props.tagline}`} </span>
       </Typography>
@@ -48,4 +48,4 @@ const MovieHeader: React.FC<MovieT> = (props) => {
   );
 };
 
-export default MovieHeader;
+export default TvShowHeader;

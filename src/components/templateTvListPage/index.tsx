@@ -10,7 +10,7 @@ const TvListPageTemplate: React.FC<TvListPageTemplateProps> = (props) => {
       <Header title={props.title} />
 
       <Grid item container spacing={1}>
-        <TvList shows={props.shows} />
+        <TvList shows={props.shows} action={props.action} />
       </Grid>
     </Box>
   );

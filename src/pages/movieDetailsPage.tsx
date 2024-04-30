@@ -1,7 +1,7 @@
-import React from "react"; // replace existing react import
+import React from "react";
 import { useParams } from "react-router-dom";
 import MovieDetails from "../components/movieDetails";
-import { MovieT, MovieCredits } from "../types/interfaces"; // Update imported interfaces
+import { MovieT, MovieCredits } from "../types/interfaces";
 import PageTemplate from "../components/templateMoviePage";
 import { getMovie, getMovieCredits } from "../api/tmdb-api";
 import { useQuery } from "react-query";
