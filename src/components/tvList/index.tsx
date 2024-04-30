@@ -1,13 +1,18 @@
 import React from "react";
 import TvCard from "../tvCard";
 import Grid from "@mui/material/Grid";
-import { BaseTvShowList } from "../../types/interfaces";
+import { BaseTVShow } from "../../types/interfaces";
 
-const TvList: React.FC<BaseTvShowList> = (props) => {
+interface ShowProps {
+  shows: BaseTVShow[];
+  action: (m: BaseTVShow) => React.ReactNode;
+}
+
+const TvList: React.FC<ShowProps> = (props) => {
   const shows = props.shows;
   const tvCards = shows.map((show) => (
-    <Grid key={show.id} item xs={12} sm={6} md={4} lg={3}>
-      <TvCard key={show.id} show={show} />
+    <Grid key={show.id} item xs={12} sm={6} md={6} lg={4}>
+      <TvCard key={show.id} show={show} action={props.action} />
     </Grid>
   ));
   return tvCards;
