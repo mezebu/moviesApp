@@ -120,6 +120,60 @@ export const getTvShows = (page = 1) => {
     });
 };
 
+export const getTvShowDetail = (id: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${id}?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US&include_adult=false&include_video=false&page=1`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch tv show detail. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getTvShowImages = (id: string | number) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${id}/images?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("failed to fetch tv images");
+      }
+      return response.json();
+    })
+    .then((json) => json.posters)
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getTvShowCast = (id: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch TV cast");
+      }
+      return response.json();
+    })
+    .then((json) => json.cast)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const getTopRatedMovies = (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${
@@ -142,7 +196,7 @@ export const getMovieCredits = (id: string) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${
       import.meta.env.VITE_TMDB_KEY
-    }&language=en-US&include_adult=false&include_video=false&page=1`
+    }&language=en-US`
   )
     .then((response) => {
       if (!response.ok)
