@@ -42,15 +42,15 @@ const styles = {
 
 interface MovieDetailsProps {
   movie: MovieT;
-  cast: CastMember[]; // Ensure CastMember type is imported
+  cast: CastMember[];
 }
 
 const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, cast }) => {
-  const navigate = useNavigate(); // Hook to navigate programmatically
+  const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false); // New
 
   const handleActorClick = (actorId: number) => {
-    navigate(`/actor/${actorId}`); // Navigate to actor profile page
+    navigate(`/actor/${actorId}`);
   };
 
   return (
