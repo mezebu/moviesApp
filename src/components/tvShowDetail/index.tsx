@@ -126,6 +126,7 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
                       <Avatar
                         alt={member.name}
                         src={`https://image.tmdb.org/t/p/w500/${member.profile_path}`}
+                        sx={{ width: 56, height: 60 }}
                       />
                     ) : null
                   }
@@ -148,6 +149,8 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
                   <Avatar
                     alt={season.name}
                     src={`https://image.tmdb.org/t/p/w500/${season.poster_path}`}
+                    variant="rounded"
+                    sx={{ width: 56, height: 60 }}
                   />
                 ) : null
               }
