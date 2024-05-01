@@ -1,20 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+
+// Contexts
+// prettier-ignore
+import { ThemeContextProvider,  useThemeContext,} from "./contexts/ThemeContextProvider";
+
+import MoviesContextProvider from "./contexts/moviesContext";
+
+// Components
+import AppDrawer from "./components/AppDrawer";
+
+// Pages
 import HomePage from "./pages/homePage";
 import MoviePage from "./pages/movieDetailsPage";
-import FavouriteMoviesPage from "./pages/favouriteMoviesPage"; // NEW
-import UpcomingMoviesPage from "./pages/upcomingMoviesPage"; // NEW
+import FavouriteMoviesPage from "./pages/favouriteMoviesPage";
+import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
-import AppDrawer from "./components/AppDrawer";
-import {
-  ThemeContextProvider,
-  useThemeContext,
-} from "./contexts/ThemeContextProvider";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { QueryClientProvider, QueryClient } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from "./pages/addMovieReviewPage";
 import TvShowsPage from "./pages/tvShowsPage";
 import TopRatedMoviesPage from "./pages/topRatedMoviesPage";
@@ -22,6 +27,7 @@ import ActorProfilePage from "./pages/actorProfilePage";
 import ActorsPage from "./pages/actorsPage";
 import SearchPage from "./pages/searchPage";
 import ShowDetailPage from "./pages/showDetailPage";
+import SimilarMoviesPage from "./pages/similarMoviesPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,12 +51,8 @@ const App = () => {
           <AppDrawer>
             <MoviesContextProvider>
               <Routes>
-                <Route path="/reviews/:id" element={<MovieReviewPage />} />
-                <Route path="/reviews/form" element={<AddMovieReviewPage />} />
-                <Route path="/movies/tv" element={<TvShowsPage />} />
-                <Route path="/tv/:id" element={<ShowDetailPage />} />
-                <Route path="/movies/actors" element={<ActorsPage />} />
-                <Route path="/movies/search" element={<SearchPage />} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="/movies/:id" element={<MoviePage />} />
                 <Route
                   path="/movies/favourites"
                   element={<FavouriteMoviesPage />}
@@ -60,9 +62,17 @@ const App = () => {
                   element={<UpcomingMoviesPage />}
                 />
                 <Route path="/movies/top" element={<TopRatedMoviesPage />} />
-                <Route path="/movies/:id" element={<MoviePage />} />
+                <Route
+                  path="/movies/similar/:id"
+                  element={<SimilarMoviesPage />}
+                />
+                <Route path="/movies/search" element={<SearchPage />} />
+                <Route path="/movies/actors" element={<ActorsPage />} />
                 <Route path="/actor/:id" element={<ActorProfilePage />} />
-                <Route path="/" element={<HomePage />} />
+                <Route path="/movies/tv" element={<TvShowsPage />} />
+                <Route path="/tv/:id" element={<ShowDetailPage />} />
+                <Route path="/reviews/:id" element={<MovieReviewPage />} />
+                <Route path="/reviews/form" element={<AddMovieReviewPage />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
             </MoviesContextProvider>

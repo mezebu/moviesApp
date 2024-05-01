@@ -35,7 +35,7 @@ const TvShowsPage: React.FC = () => {
 
   const sortOptions = [
     { label: "Name", value: "name" },
-    { label: "Vote Average", value: "vote_average" },
+    { label: "Rating", value: "vote_average" },
     { label: "First Air Date", value: "first_air_date" },
   ];
 

@@ -36,6 +36,7 @@ const ActorsPage: React.FC = () => {
   const sortOptions = [
     { label: "Name", value: "name" },
     { label: "Popularity", value: "popularity" },
+    { label: "Gender", value: "gender" },
   ];
 
   const theme = useTheme();
@@ -49,15 +50,21 @@ const ActorsPage: React.FC = () => {
   }
 
   const actors = data ? data.results : [];
-  actors.sort((a, b) =>
-    sortCriteria === "popularity"
-      ? sortAsc
-        ? a.popularity - b.popularity
-        : b.popularity - a.popularity
-      : sortAsc
-      ? a.name.localeCompare(b.name)
-      : b.name.localeCompare(a.name)
-  );
+
+  actors.sort((a, b) => {
+    switch (sortCriteria) {
+      case "popularity":
+        return sortAsc
+          ? a.popularity - b.popularity
+          : b.popularity - a.popularity;
+      case "gender":
+        return sortAsc ? a.gender - b.gender : b.gender - a.gender;
+      default:
+        return sortAsc
+          ? a.name.localeCompare(b.name)
+          : b.name.localeCompare(a.name);
+    }
+  });
 
   return (
     <div>
@@ -82,7 +89,7 @@ const ActorsPage: React.FC = () => {
         </Fab>
       </Tooltip>
       <SortDialog
-        title="Sort Actors"
+        title="Sort Actors By"
         open={open}
         onClose={handleClose}
         onSortChange={handleSortCriteriaChange}
