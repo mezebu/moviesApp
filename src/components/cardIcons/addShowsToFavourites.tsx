@@ -13,8 +13,8 @@ const AddShowsToFavouritesIcon: React.FC<BaseTVShow> = (show) => {
     context.addToFavouriteShows(show);
   };
   return (
-    <Tooltip title="Add to favorites">
-      <IconButton aria-label="add to favorites" onClick={onUserSelect}>
+    <Tooltip title="Add show to favorites">
+      <IconButton aria-label="Add to favorites" onClick={onUserSelect}>
         <FavoriteIcon
           color={show.favourite ? "error" : "primary"}
           fontSize="large"

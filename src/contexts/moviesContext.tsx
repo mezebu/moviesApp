@@ -15,10 +15,11 @@ interface MovieContextInterface {
   addToFavourites: (movie: ListedMovie) => void;
   addToMustWatch: (movie: ListedMovie) => void;
   removeFromFavourites: (movie: ListedMovie) => void;
-  addReview: (movie: MovieT, review: Review) => void; // NEW
-  addToFavouriteActors: (actor: Actor) => void; // NEW
-  removeFromFavouriteActors: (actor: Actor) => void; // NEW
+  addReview: (movie: MovieT, review: Review) => void;
+  addToFavouriteActors: (actor: Actor) => void;
+  removeFromFavouriteActors: (actor: Actor) => void;
   addToFavouriteShows: (show: BaseTVShow) => void;
+  removeFromFavouriteShows: (show: BaseTVShow) => void;
 }
 
 const initialContextState: MovieContextInterface = {
@@ -45,6 +46,9 @@ const initialContextState: MovieContextInterface = {
     actor.id; // Placeholder
   },
   addToFavouriteShows: (show) => {
+    show.id;
+  },
+  removeFromFavouriteShows: (show) => {
     show.id;
   },
 };
@@ -106,6 +110,10 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
     setFavouriteActors(favouriteActors.filter((aId) => aId !== actor.id));
   };
 
+  const removeFromFavouriteShows = (show: BaseTVShow) => {
+    setFavouriteShows(favouriteShows.filter((sId) => sId !== show.id));
+  };
+
   return (
     <MoviesContext.Provider
       value={{
@@ -120,6 +128,7 @@ const MoviesContextProvider: React.FC<React.PropsWithChildren> = (props) => {
         removeFromFavouriteActors,
         addReview,
         addToFavouriteShows,
+        removeFromFavouriteShows,
       }}
     >
       {props.children}
