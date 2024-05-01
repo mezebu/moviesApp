@@ -18,7 +18,7 @@ import {
   Stack,
   Tooltip,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const styles = {
   chipSet: {
@@ -127,6 +127,14 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, cast }) => {
               </Box>
             </Tooltip>
           ))}
+        </Stack>
+      </Paper>
+      <Paper variant="outlined" sx={styles.chipSet}>
+        <Chip label="Similar Movies" sx={styles.chipLabel} color="primary" />
+        <Stack direction="row" spacing={1} flexWrap="wrap">
+          <Link to={`/movies/similar/${movie.id}`}>
+            Go to similar movies...
+          </Link>
         </Stack>
       </Paper>
       <Fab
