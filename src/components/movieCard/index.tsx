@@ -54,7 +54,7 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
         <CardActions disableSpacing>
           {props.action(movie)}
           <Link to={`/movies/${movie.id}`}>
-            <Tooltip title="More info">
+            <Tooltip title="More movie info">
               <IconButton aria-label="add to favorites">
                 <InfoIcon fontSize="large" color="primary" />
               </IconButton>
