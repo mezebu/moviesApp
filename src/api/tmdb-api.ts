@@ -1,8 +1,8 @@
-export const getMovies = (page = 1) => {
+export const getMovies = (page = 1, sortBy: string = "popularity.desc") => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${
       import.meta.env.VITE_TMDB_KEY
-    }&language=en-US&include_adult=false&include_video=false&page=${page}`
+    }&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`
   )
     .then((response) => {
       if (!response.ok)
