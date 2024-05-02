@@ -7,7 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SortIcon from "@mui/icons-material/Sort";
-import { SelectChangeEvent } from "@mui/material";
+import { Box, SelectChangeEvent } from "@mui/material";
 
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -15,25 +15,7 @@ import { FilterOption, GenreData } from "../../types/interfaces";
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from "../spinner";
-
-const styles = {
-  root: {
-    maxWidth: 345,
-  },
-  media: { height: 300 },
-
-  formControl: {
-    margin: 1,
-    minWidth: 220,
-    backgroundColor: "rgb(255, 255, 255)",
-  },
-};
-
-interface FilterMoviesCardProps {
-  onUserInput: (f: FilterOption, s: string) => void;
-  titleFilter: string;
-  genreFilter: string;
-}
+import { FilterMoviesCardProps, sortOptions } from "./data";
 
 const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
   const { data, error, isLoading, isError } = useQuery<GenreData, Error>(
@@ -71,46 +53,75 @@ const FilterMoviesCard: React.FC<FilterMoviesCardProps> = (props) => {
 
   return (
     <>
-      <Card sx={styles.root} variant="outlined">
+      <Card variant="outlined">
         <CardContent>
-          <Typography variant="h5" component="h1">
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <FilterAltIcon fontSize="large" />
-            Filter the movies.
-          </Typography>
-          <TextField
-            sx={styles.formControl}
-            id="filled-search"
-            label="Search field"
-            type="search"
-            value={props.titleFilter}
-            variant="filled"
-            onChange={handleTextChange}
-          />
-          <FormControl sx={styles.formControl}>
-            <InputLabel id="genre-label">Genre</InputLabel>
-            <Select
-              labelId="genre-label"
-              id="genre-select"
-              value={props.genreFilter}
-              onChange={handleGenreChange}
-            >
-              {genres.map((genre) => {
-                return (
-                  <MenuItem key={genre.id} value={genre.id}>
-                    {genre.name}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
+
+            <Typography variant="h5" component="h1">
+              Filter the movies.
+            </Typography>
+          </Box>
+
+          <Box sx={{ p: 1 }}>
+            <TextField
+              fullWidth
+              id="filled-search"
+              label="Search field"
+              type="search"
+              value={props.titleFilter}
+              variant="filled"
+              onChange={handleTextChange}
+              sx={{ my: 2 }}
+            />
+            <FormControl fullWidth>
+              <InputLabel id="genre-label">Genre</InputLabel>
+              <Select
+                labelId="genre-label"
+                id="genre-select"
+                label="Genre"
+                value={props.genreFilter}
+                onChange={handleGenreChange}
+              >
+                {genres.map((genre) => {
+                  return (
+                    <MenuItem key={genre.id} value={genre.id}>
+                      {genre.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Box>
         </CardContent>
       </Card>
-      <Card sx={styles.root} variant="outlined">
+      <Card variant="outlined">
         <CardContent>
-          <Typography variant="h5" component="h1">
+          <Box sx={{ display: "flex", alignItems: "center", my: 2 }}>
             <SortIcon fontSize="large" />
-            Sort the movies.
-          </Typography>
+            <Typography variant="h5" component="h1">
+              Sort the movies.
+            </Typography>
+          </Box>
+
+          <FormControl fullWidth>
+            <InputLabel id="sort-select-label">Sort By</InputLabel>
+            <Select
+              labelId="sort-select-label"
+              id="sort-select"
+              value={props.currentSort}
+              label="Sort By"
+              onChange={(e: SelectChangeEvent) =>
+                props.onSortChange(e.target.value as string)
+              }
+            >
+              {sortOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </CardContent>
       </Card>
     </>
