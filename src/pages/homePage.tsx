@@ -25,9 +25,10 @@ const genreFiltering = {
 
 const HomePage: React.FC = () => {
   const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState<string>("popularity.desc");
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    ["discover", page],
-    () => getMovies(page),
+    ["discover", page, sortBy],
+    () => getMovies(page, sortBy),
     { keepPreviousData: true }
   );
 
@@ -53,6 +54,10 @@ const HomePage: React.FC = () => {
     setFilterValues(updatedFilterSet);
   };
 
+  const handleSortChange = (newSort: string): void => {
+    setSortBy(newSort);
+  };
+
   const movies = data ? data.results : [];
   const displayedMovies = filterFunction(movies);
 
@@ -69,6 +74,8 @@ const HomePage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        onSortChange={handleSortChange}
+        currentSort={sortBy}
       />
       <CustomPagination
         currentPage={page}
