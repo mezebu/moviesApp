@@ -18,18 +18,16 @@ const FilterButton: React.FC<FilterButtonProps> = ({ setDrawerOpen }) => {
 
   return (
     <Fab
-      style={{
+      sx={{
         position: "fixed",
         bottom: matches ? 20 : 70,
         right: 20,
       }}
-      variant="extended"
       color="primary"
       aria-label="filter"
       onClick={handleButtonClick}
     >
-      <FilterListIcon sx={{ mr: 1 }} />
-      Filter
+      <FilterListIcon />
     </Fab>
   );
 };
