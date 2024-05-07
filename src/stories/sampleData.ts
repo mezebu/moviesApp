@@ -78,4 +78,18 @@ export default {
   video: false,
   vote_average: 7,
   vote_count: 9692,
+  cast: [
+    {
+      id: 1,
+      name: "Actor One",
+      character: "Character One",
+      profile_path: "/path_to_profile.jpg",
+    },
+    {
+      id: 2,
+      name: "Actor Two",
+      character: "Character Two",
+      profile_path: "/path_to_profile.jpg",
+    },
+  ],
 };

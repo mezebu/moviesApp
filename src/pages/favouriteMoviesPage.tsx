@@ -139,6 +139,10 @@ const FavouriteMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues[0].value}
         genreFilter={filterValues[1].value}
+        onSortChange={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+        currentSort={""}
       />
     </>
   );

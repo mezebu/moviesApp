@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 import FilterMoviesCard from "../components/filterMoviesCard";
 import { MemoryRouter } from "react-router";
 import { action } from "@storybook/addon-actions";
 import { QueryClientProvider, QueryClient } from "react-query";
-import React from 'react';
+import React from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,15 +15,22 @@ const queryClient = new QueryClient({
   },
 });
 
-const meta = {
-  title: 'Home Page/FilterMoviesCard',
+const meta: Meta<typeof FilterMoviesCard> = {
+  title: "Home Page/FilterMoviesCard",
   component: FilterMoviesCard,
   decorators: [
-    (Story: React.FC) => <MemoryRouter initialEntries={["/"]}><Story /></MemoryRouter>,
-    (Story: React.FC) => (<QueryClientProvider client={queryClient}><Story /></QueryClientProvider>
-    )
+    (Story: React.FC) => (
+      <MemoryRouter initialEntries={["/"]}>
+        <Story />
+      </MemoryRouter>
+    ),
+    (Story: React.FC) => (
+      <QueryClientProvider client={queryClient}>
+        <Story />
+      </QueryClientProvider>
+    ),
   ],
-} satisfies Meta<typeof FilterMoviesCard>;
+};
 
 export default meta;
 
@@ -34,6 +41,7 @@ export const Basic: Story = {
     onUserInput: action("filter input"),
     titleFilter: "",
     genreFilter: "All",
+    currentSort: "None", // Added the missing required property 'currentSort'
   },
+  storyName: "Default",
 };
-Basic.storyName = "Default";
