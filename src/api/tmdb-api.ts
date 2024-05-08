@@ -264,6 +264,24 @@ export const getActorDetails = (id: string) => {
     });
 };
 
+export const getActorImages = (id: string | number) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/${id}/images?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("failed to fetch images");
+      }
+      return response.json();
+    })
+    .then((json) => json.profiles)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const queryResults = (query: string, page: number = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/search/multi?api_key=${
