@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import SortIcon from "@mui/icons-material/Sort";
+import { Link } from "@mui/material";
 
 interface TvShowDetailsProps {
   show: TVShowDetail;
@@ -32,6 +33,10 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
 
   const handleActorClick = (actorId: number) => {
     navigate(`/actor/${actorId}`);
+  };
+
+  const handleSeasonClick = (seasonNumber: number) => {
+    navigate(`/season/${show.id}/${seasonNumber}`);
   };
 
   return (
@@ -142,7 +147,13 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
       </Divider>
       <Stack direction="row" spacing={1} flexWrap="wrap">
         {show.seasons.map((season) => (
-          <Box key={season.id}>
+          <Box
+            component={Link}
+            underline="hover"
+            onClick={() => handleSeasonClick(season.season_number)}
+            key={season.id}
+            sx={{ cursor: "pointer" }}
+          >
             <CardHeader
               avatar={
                 season.poster_path ? (
