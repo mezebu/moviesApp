@@ -60,6 +60,10 @@ const TopRatedMoviesPage: React.FC = () => {
         onFilterValuesChange={changeFilterValues}
         titleFilter={filterValues.find((f) => f.name === "title")?.value || ""}
         genreFilter={filterValues.find((f) => f.name === "genre")?.value || ""}
+        onSortChange={function (): void {
+          throw new Error("Function not implemented.");
+        }}
+        currentSort={""}
       />
       <CustomPagination
         currentPage={page}
