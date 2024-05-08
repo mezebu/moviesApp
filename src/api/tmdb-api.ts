@@ -192,6 +192,25 @@ export const getTvShowCast = (id: string) => {
     });
 };
 
+export const getSeasonDetail = (showId: string, seasonNumber: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${showId}/season/${seasonNumber}?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch season details: ${response.statusText}`
+        );
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw new Error(`Fetch error: ${error.message}`);
+    });
+};
+
 export const getTopRatedMovies = (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${
