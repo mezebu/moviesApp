@@ -28,6 +28,7 @@ import ActorsPage from "./pages/actorsPage";
 import SearchPage from "./pages/searchPage";
 import ShowDetailPage from "./pages/showDetailPage";
 import SimilarMoviesPage from "./pages/similarMoviesPage";
+import SeasonDetailsPage from "./pages/seasonDetailsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -67,6 +68,10 @@ const App = () => {
                   element={<SimilarMoviesPage />}
                 />
                 <Route path="/movies/search" element={<SearchPage />} />
+                <Route
+                  path="/season/:showId/:seasonNumber"
+                  element={<SeasonDetailsPage />}
+                />
                 <Route path="/movies/actors" element={<ActorsPage />} />
                 <Route path="/actor/:id" element={<ActorProfilePage />} />
                 <Route path="/movies/tv" element={<TvShowsPage />} />
