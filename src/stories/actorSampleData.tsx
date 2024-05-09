@@ -1,0 +1,31 @@
+export default {
+  adult: false,
+  gender: 2,
+  id: 123456,
+  known_for: [
+    {
+      adult: false,
+      backdrop_path: "/3vxvsmYLTf4jnr163SUlBIw51ee.jpg",
+      genre_ids: [878, 18],
+      id: 335984,
+      media_type: "movie",
+      original_language: "en",
+      original_title: "Blade Runner 2049",
+      overview:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et mauris eu augue porttitor mattis in at nunc. Mauris auctor ullamcorper felis, sed vehicula libero malesuada ac. Integer et tortor ut sem tempor efficitur ac ac arcu. Proin sit amet justo vel sapien fermentum venenatis. Vivamus vel purus vitae justo posuere feugiat nec vel arcu. Sed eget faucibus sapien. In hac habitasse platea dictumst. Donec laoreet consequat ex eget vehicula. In euismod nisi sit amet risus aliquet, sed feugiat elit consectetur. Fusce pharetra lorem vel nisl rhoncus, id consequat est aliquet. Vivamus scelerisque purus sit amet nunc commodo, nec lacinia ex convallis. Nullam lacinia lacus id diam vestibulum, ut placerat purus fringilla. Sed malesuada mauris eu velit pharetra, eu faucibus risus elementum. Integer dapibus tempus ipsum sit amet vehicula.",
+      poster_path: "/3vxvsmYLTf4jnr163SUlBIw51ee.jpg",
+      release_date: "2017-10-04",
+      title: "Blade Runner 2049",
+      video: false,
+      vote_average: 7.5,
+      vote_count: 11771,
+      popularity: 8.7,
+    },
+  ],
+  known_for_department: "Acting",
+  name: "Ana de Armas",
+  original_name: "Ana de Armas",
+  popularity: 8.7,
+  profile_path: "/3vxvsmYLTf4jnr163SUlBIw51ee.jpg",
+  favourite: true,
+};
