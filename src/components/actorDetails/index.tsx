@@ -1,6 +1,4 @@
 import React from "react";
-import Card from "@mui/material/Card";
-import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
@@ -8,35 +6,9 @@ import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { styled } from "@mui/material/styles";
-import { ActorProfileDetails } from "../../types/interfaces";
 
-const StyledCard = styled(Card)({
-  borderRadius: "1rem",
-  boxShadow: "none",
-  position: "relative",
-  minWidth: 200,
-  minHeight: 650,
-  "&:after": {
-    content: '""',
-    display: "block",
-    position: "absolute",
-    width: "100%",
-    height: "64%",
-    bottom: 0,
-    zIndex: 1,
-    background: "linear-gradient(to top, #000, rgba(0,0,0,0))",
-  },
-});
-const StyledCardMedia = styled(CardMedia)({
-  position: "absolute",
-  width: "100%",
-  height: "100%",
-  top: 0,
-  left: 0,
-  zIndex: 0,
-  backgroundPosition: "top",
-});
+import { ActorProfileDetails } from "../../types/interfaces";
+import { StyledCard, StyledCardMedia } from "./styles";
 
 interface ActorDetailsProps {
   actor: ActorProfileDetails;
@@ -45,14 +17,14 @@ interface ActorDetailsProps {
 const ActorDetails: React.FC<ActorDetailsProps> = ({ actor }) => {
   return (
     <Grid container>
-      <Grid item md={6} xs={12}>
+      <Grid item lg={6} xs={12}>
         <StyledCard>
           <StyledCardMedia
             image={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
           />
         </StyledCard>
       </Grid>
-      <Grid item md={6} xs={12}>
+      <Grid item lg={6} xs={12}>
         <Box sx={{ p: 2 }}>
           <Stack
             direction="row"
