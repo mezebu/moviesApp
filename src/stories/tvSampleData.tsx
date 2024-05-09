@@ -1,0 +1,16 @@
+export default {
+  backdrop_path: "/9hGF3WUkBf7cSjMg0cdMDHJkByd.jpg",
+  first_air_date: "2023-03-15",
+  genre_ids: [18, 36, 27],
+  id: 987654,
+  name: "Game Of Thrones",
+  origin_country: ["US"],
+  original_language: "en",
+  original_name: "Mock Original Name",
+  overview: "This is a mock TV show overview.",
+  popularity: 8.5,
+  poster_path: "/9hGF3WUkBf7cSjMg0cdMDHJkByd.jpg",
+  vote_average: 7.9,
+  vote_count: 1234,
+  favourite: true,
+};
