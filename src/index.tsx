@@ -29,6 +29,7 @@ import SearchPage from "./pages/searchPage";
 import ShowDetailPage from "./pages/showDetailPage";
 import SimilarMoviesPage from "./pages/similarMoviesPage";
 import SeasonDetailsPage from "./pages/seasonDetailsPage";
+import NowPlayingPage from "./pages/nowPlayingPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -62,6 +63,8 @@ const App = () => {
                   path="/movies/upcoming"
                   element={<UpcomingMoviesPage />}
                 />
+                <Route path="/movies/nowplaying" element={<NowPlayingPage />} />
+
                 <Route path="/movies/top" element={<TopRatedMoviesPage />} />
                 <Route
                   path="/movies/similar/:id"
