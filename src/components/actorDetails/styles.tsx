@@ -7,7 +7,7 @@ export const StyledCard = styled(Card)({
   boxShadow: "none",
   position: "relative",
   minWidth: 200,
-  minHeight: "100%",
+  minHeight: 700,
   "&:after": {
     content: '""',
     display: "block",
