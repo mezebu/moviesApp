@@ -53,6 +53,24 @@ export const getGenres = () => {
     });
 };
 
+export const getTvGenres = () => {
+  return fetch(
+    "https://api.themoviedb.org/3/genre/tv/list?api_key=" +
+      import.meta.env.VITE_TMDB_KEY +
+      "&language=en-US"
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch genres. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const getMovieImages = (id: string | number) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/${id}/images?api_key=${
@@ -84,11 +102,14 @@ export const getMovieReviews = (id: string | number) => {
     });
 };
 
-export const getUpcomingMovies = (page = 1) => {
+export const getUpcomingMovies = (
+  page = 1,
+  sortBy: string = "popularity.desc"
+) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/upcoming?api_key=${
       import.meta.env.VITE_TMDB_KEY
-    }&language=en-US&page=${page}`
+    }&language=en-US&page=${page}&sort_by=${sortBy}`
   )
     .then((response) => {
       if (!response.ok)
@@ -120,11 +141,11 @@ export const getSimilarMovies = (id: string, page: number = 1) => {
     });
 };
 
-export const getTvShows = (page = 1) => {
+export const getTvShows = (page = 1, sortBy: string = "popularity.desc") => {
   return fetch(
     `https://api.themoviedb.org/3/discover/tv?api_key=${
       import.meta.env.VITE_TMDB_KEY
-    }&language=en-US&include_adult=false&include_video=false&page=${page}`
+    }&language=en-US&sort_by=${sortBy}&include_adult=false&include_video=false&page=${page}`
   )
     .then((response) => {
       if (!response.ok)
