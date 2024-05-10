@@ -17,6 +17,7 @@ import { useMatch, useResolvedPath, NavLink } from "react-router-dom";
 import NightModeToggle from "../NightModeToggle";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import UpcomingRoundedIcon from "@mui/icons-material/UpcomingRounded";
+import PlayCircleOutlineRoundedIcon from "@mui/icons-material/PlayCircleOutlineRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import LiveTvRoundedIcon from "@mui/icons-material/LiveTvRounded";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
@@ -59,6 +60,11 @@ export default function AppDrawer(props: Props) {
       label: "Upcoming",
       path: "/movies/upcoming",
       icon: <UpcomingRoundedIcon />,
+    },
+    {
+      label: "Now Playing",
+      path: "/movies/nowplaying",
+      icon: <PlayCircleOutlineRoundedIcon />,
     },
     {
       label: "Favorites",
