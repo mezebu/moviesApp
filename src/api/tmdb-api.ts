@@ -123,6 +123,41 @@ export const getUpcomingMovies = (
     });
 };
 
+export const getNowPlayingMovies = (page = 1) => {
+  return fetch(
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US&include_adult=false&include_video=false&page=${page}`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch now playing movies. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
+    });
+};
+
+export const getMyMovieReviews = () => {
+  return fetch(
+    `https://a1a85bt2a4.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch dynamo reviews. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .then((json) => json.data)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const getSimilarMovies = (id: string, page: number = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${
@@ -132,7 +167,7 @@ export const getSimilarMovies = (id: string, page: number = 1) => {
     .then((response) => {
       if (!response.ok)
         throw new Error(
-          `Unable to fetch upcoming movies. Response status: ${response.status}`
+          `Unable to fetch similar movies. Response status: ${response.status}`
         );
       return response.json();
     })
