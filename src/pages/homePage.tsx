@@ -12,16 +12,10 @@ import Spinner from "../components/spinner";
 import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
 import CustomPagination from "../components/pagination";
 
-const titleFiltering = {
-  name: "title",
-  value: "",
-  condition: titleFilter,
-};
-const genreFiltering = {
-  name: "genre",
-  value: "0",
-  condition: genreFilter,
-};
+const filterConfig = [
+  { name: "title", value: "", condition: titleFilter },
+  { name: "genre", value: "0", condition: genreFilter },
+];
 
 const HomePage: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -34,7 +28,7 @@ const HomePage: React.FC = () => {
 
   const { filterValues, setFilterValues, filterFunction } = useFiltering(
     [],
-    [titleFiltering, genreFiltering]
+    filterConfig
   );
 
   if (isLoading) {

@@ -19,9 +19,10 @@ const filterConfig = [
 
 const UpcomingMoviesPage: React.FC = () => {
   const [page, setPage] = useState(1);
+  const [sortBy, setSortBy] = useState<string>("popularity.desc");
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    ["upcoming", page],
-    () => getUpcomingMovies(page),
+    ["upcoming", page, sortBy],
+    () => getUpcomingMovies(page, sortBy),
     { keepPreviousData: true }
   );
 
@@ -31,10 +32,16 @@ const UpcomingMoviesPage: React.FC = () => {
   );
 
   const changeFilterValues = (type: string, value: string) => {
-    const newFilters = filterValues.map((filter) =>
-      filter.name === type ? { ...filter, value } : filter
-    );
-    setFilterValues(newFilters);
+    const changedFilter = { name: type, value: value };
+    const updatedFilterSet =
+      type === "title"
+        ? [changedFilter, filterValues[1]]
+        : [filterValues[0], changedFilter];
+    setFilterValues(updatedFilterSet);
+  };
+
+  const handleSortChange = (newSort: string): void => {
+    setSortBy(newSort);
   };
 
   const movies = data?.results || [];
@@ -57,12 +64,10 @@ const UpcomingMoviesPage: React.FC = () => {
       />
       <MovieFilterUI
         onFilterValuesChange={changeFilterValues}
-        titleFilter={filterValues.find((f) => f.name === "title")?.value || ""}
-        genreFilter={filterValues.find((f) => f.name === "genre")?.value || ""}
-        onSortChange={function (): void {
-          throw new Error("Function not implemented.");
-        }}
-        currentSort={""}
+        titleFilter={filterValues[0].value}
+        genreFilter={filterValues[1].value}
+        onSortChange={handleSortChange}
+        currentSort={sortBy}
       />
       <CustomPagination
         currentPage={page}
