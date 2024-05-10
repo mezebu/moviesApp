@@ -58,6 +58,15 @@ export interface Review {
   id: string;
   content: string;
   author: string;
+  reviewer_name?: string;
+}
+
+export interface DynamoReview {
+  content: string;
+  movieId: number;
+  rating: number;
+  review_date: string;
+  reviewer_name?: string;
 }
 
 export interface GenreData {
