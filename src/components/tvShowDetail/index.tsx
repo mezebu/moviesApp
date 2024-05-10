@@ -40,10 +40,10 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
   };
 
   return (
-    <div>
-      <Typography variant="h5" component="h3" align="center">
-        Overview
-      </Typography>
+    <Box sx={{ my: 2 }}>
+      <Divider>
+        <Chip label="Overview" size="medium" color="primary" />
+      </Divider>
       <Typography variant="h6" component="p">
         {show.overview}
       </Typography>
@@ -175,7 +175,7 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
           </Box>
         ))}
       </Stack>
-    </div>
+    </Box>
   );
 };
 
