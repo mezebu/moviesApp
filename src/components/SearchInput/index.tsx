@@ -1,6 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { Box } from "@mui/material";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 
@@ -24,7 +24,9 @@ const SearchInput = () => {
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e: { target: { value: SetStateAction<string> } }) =>
+            setSearchQuery(e.target.value)
+          }
         />
       </Search>
     </Box>
