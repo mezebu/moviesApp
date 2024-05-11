@@ -1,8 +1,6 @@
 import React, { useContext } from "react";
 import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
-import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
-import StarRateIcon from "@mui/icons-material/StarRate";
 import InfoIcon from "@mui/icons-material/Info";
 import img from "../../images/film-poster-placeholder.png";
 import { Link } from "react-router-dom";
@@ -10,6 +8,7 @@ import { Box, IconButton, Tooltip } from "@mui/material";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { ListedMovie } from "../../types/interfaces";
 import { Content, StyledCard, StyledCardMedia, StyledContent } from "./styles";
+import CircularProgressWithLabel from "../circularProgress";
 
 interface MovieListProps {
   movie: ListedMovie;
@@ -21,6 +20,31 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
   const { favourites } = useContext(MoviesContext);
 
   if (favourites.find((id) => id === movie.id)) movie.favourite = true;
+
+  // Round the voter average to the nearest whole number
+  const roundedVoteAverage = Math.round(movie.vote_average);
+
+  // Calculate the percentage based on the rounded voter average
+  const percentage = (roundedVoteAverage / 10) * 100;
+
+  // Check if movie.release_date is a valid date string
+  const isValidDate = (dateString: string) => {
+    return !isNaN(Date.parse(dateString));
+  };
+
+  // Parse the release date string into a Date object if it's valid
+  const releaseDate = isValidDate(movie.release_date)
+    ? new Date(movie.release_date)
+    : null;
+
+  // Format the date as "15 Dec 2023" if it's valid, otherwise display an error message
+  const formattedDate = releaseDate
+    ? new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }).format(releaseDate)
+    : "Invalid Date";
 
   return (
     <StyledCard>
@@ -37,17 +61,13 @@ const MovieCard: React.FC<MovieListProps> = (props) => {
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <StyledContent>
-            <CalendarIcon fontSize="medium" />
-            <Typography variant="subtitle1" sx={{ ml: 1 }}>
-              {movie.release_date}
+            <Typography variant="subtitle1" fontWeight="bold">
+              {formattedDate}
             </Typography>
           </StyledContent>
 
           <StyledContent>
-            <StarRateIcon fontSize="medium" />
-            <Typography variant="subtitle1">
-              {"  "} {movie.vote_average}{" "}
-            </Typography>
+            <CircularProgressWithLabel thickness={6} value={percentage} />
           </StyledContent>
         </Box>
 
