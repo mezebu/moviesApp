@@ -321,6 +321,25 @@ export const getActors = (page = 1) => {
     });
 };
 
+export const getKnownFor = (actorId: string) => {
+  return fetch(
+    `https://api.themoviedb.org/3/person/${actorId}/combined_credits?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }`
+  )
+    .then((response) => {
+      if (!response.ok)
+        throw new Error(
+          `Unable to fetch actors known for movies. Response status: ${response.status}`
+        );
+      return response.json();
+    })
+    .then((json) => json.cast)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const getActorDetails = (id: string) => {
   return fetch(
     `https://api.themoviedb.org/3/person/${id}?api_key=${
