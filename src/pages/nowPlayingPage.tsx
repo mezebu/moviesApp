@@ -20,7 +20,7 @@ const filterConfig = [
 const NowPlayingPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const { data, error, isLoading, isError } = useQuery<DiscoverMovies, Error>(
-    ["discover", page],
+    ["now playing", page],
     () => getNowPlayingMovies(page),
     { keepPreviousData: true }
   );

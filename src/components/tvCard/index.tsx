@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 import CardActions from "@mui/material/CardActions";
-import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
-import StarRateIcon from "@mui/icons-material/StarRate";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InfoIcon from "@mui/icons-material/Info";
@@ -11,6 +9,7 @@ import { Box, Tooltip } from "@mui/material";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { Link } from "react-router-dom";
 import { Content, StyledCard, StyledCardMedia, StyledContent } from "./styles";
+import CircularProgressWithLabel from "../circularProgress";
 
 interface TvCardProps {
   show: BaseTVShow;
@@ -22,6 +21,31 @@ const TvCard: React.FC<TvCardProps> = (props) => {
   const { favouriteShows } = useContext(MoviesContext);
 
   if (favouriteShows.find((id) => id === show.id)) show.favourite = true;
+
+  // Round the voter average to the nearest whole number
+  const roundedVoteAverage = Math.round(show.vote_average);
+
+  // Calculate the percentage based on the rounded voter average
+  const percentage = (roundedVoteAverage / 10) * 100;
+
+  // Check if movie.release_date is a valid date string
+  const isValidDate = (dateString: string) => {
+    return !isNaN(Date.parse(dateString));
+  };
+
+  // Parse the release date string into a Date object if it's valid
+  const releaseDate = isValidDate(show.first_air_date)
+    ? new Date(show.first_air_date)
+    : null;
+
+  // Format the date as "15 Dec 2023" if it's valid, otherwise display an error message
+  const formattedDate = releaseDate
+    ? new Intl.DateTimeFormat("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }).format(releaseDate)
+    : "Invalid Date";
 
   return (
     <StyledCard>
@@ -41,17 +65,13 @@ const TvCard: React.FC<TvCardProps> = (props) => {
         >{`${show.name}`}</Typography>
         <Box sx={{ display: "flex", justifyContent: "space-between", px: 2 }}>
           <StyledContent>
-            <CalendarIcon fontSize="medium" />
-            <Typography variant="subtitle1" sx={{ ml: 1 }}>
-              {show.first_air_date}
+            <Typography variant="subtitle1" fontWeight="bold">
+              {formattedDate}
             </Typography>
           </StyledContent>
 
           <StyledContent>
-            <StarRateIcon fontSize="medium" />
-            <Typography variant="subtitle1">
-              {"  "} {show.vote_average}{" "}
-            </Typography>
+            <CircularProgressWithLabel thickness={6} value={percentage} />
           </StyledContent>
         </Box>
         <CardActions disableSpacing>
