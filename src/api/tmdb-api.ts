@@ -1,3 +1,5 @@
+/* import { APIConfig } from "../../config"; */
+
 export const getMovies = (page = 1, sortBy: string = "popularity.desc") => {
   return fetch(
     `https://api.themoviedb.org/3/discover/movie?api_key=${
@@ -141,9 +143,11 @@ export const getNowPlayingMovies = (page = 1) => {
     });
 };
 
+/* "https://u4v1rdzru7.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews" */
+
 export const getMyMovieReviews = () => {
   return fetch(
-    `https://a1a85bt2a4.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews`
+    `https://49j40spmei.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews`
   )
     .then((response) => {
       if (!response.ok)
