@@ -1,4 +1,4 @@
-/* import { APIConfig } from "../../config"; */
+/* import { ApiConfig } from "../config"; */
 
 export const getMovies = (page = 1, sortBy: string = "popularity.desc") => {
   return fetch(
@@ -143,23 +143,28 @@ export const getNowPlayingMovies = (page = 1) => {
     });
 };
 
-/* "https://u4v1rdzru7.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews" */
-
-export const getMyMovieReviews = () => {
-  return fetch(
-    `https://49j40spmei.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews`
-  )
-    .then((response) => {
-      if (!response.ok)
-        throw new Error(
-          `Unable to fetch dynamo reviews. Response status: ${response.status}`
-        );
-      return response.json();
-    })
-    .then((json) => json.data)
-    .catch((error) => {
-      throw error;
-    });
+export const getMyMovieReviews = async () => {
+  /*  const test = await ApiConfig;
+  console.log(`${test.API.endpoints[0].endpoint}movies/789/reviews`);
+ */
+  try {
+    return fetch(
+      `https://lopbv9wixe.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews`
+    )
+      .then((response) => {
+        if (!response.ok)
+          throw new Error(
+            `Unable to fetch dynamo reviews. Response status: ${response.status}`
+          );
+        return response.json();
+      })
+      .then((json) => json.data)
+      .catch((error) => {
+        throw error;
+      });
+  } catch (error) {
+    console.log(error, "err");
+  }
 };
 
 export const getSimilarMovies = (id: string, page: number = 1) => {
@@ -309,7 +314,7 @@ export const getMovieCredits = (id: string) => {
 
 export const getActors = (page = 1) => {
   return fetch(
-    `https://api.themoviedb.org/3/person/popular?api_key=${
+    `https://api.themoviedb.org/3/trending/person/week?api_key=${
       import.meta.env.VITE_TMDB_KEY
     }&language=en-US&include_adult=false&include_video=false&page=${page}`
   )

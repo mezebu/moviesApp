@@ -50,6 +50,7 @@ const ActorsPage: React.FC = () => {
   }
 
   const actors = data ? data.results : [];
+  console.log(actors);
 
   actors.sort((a, b) => {
     switch (sortCriteria) {
