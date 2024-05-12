@@ -83,4 +83,7 @@ I explored deploying a React app with AWS CDK using the guide provided in the fo
 
 [Deploy React App with AWS CDK](https://blog.mikaeels.com/deploy-react-app-with-aws-cdk)
 
+### Lab Commit
+I developed my project on top of the labs. The labs commits end with the commit b312931 "Tagging upcoming movies as must-watch."
+
 ```
