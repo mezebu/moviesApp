@@ -1,4 +1,4 @@
-// stories/NightModeToggle.stories.tsx
+/* /* // stories/NightModeToggle.stories.tsx
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import NightModeToggle from "../components/NightModeToggle";
@@ -53,3 +53,5 @@ export const Default = Template.bind({});
 Default.args = {
   initialMode: "light",
 };
+ */
+ */
