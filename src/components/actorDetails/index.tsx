@@ -7,10 +7,12 @@ import {
   Grid,
   Typography,
   Link,
-  Card,
-  CardActionArea,
-  CardMedia,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
 } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import InfoIcon from "@mui/icons-material/Info";
 import { ActorProfileDetails } from "../../types/interfaces";
 import { StyledCard, StyledCardMedia } from "./styles";
 import { useQuery } from "react-query";
@@ -25,6 +27,7 @@ interface KnownForItem {
   id: number;
   poster_path: string;
   title: string;
+  character: string;
 }
 const ActorDetails: React.FC<ActorDetailsProps> = ({ actor }) => {
   const navigate = useNavigate();
@@ -151,27 +154,41 @@ const ActorDetails: React.FC<ActorDetailsProps> = ({ actor }) => {
               View IMDb Profile
             </Link>
           </Typography>
-          <Typography gutterBottom variant="body2" fontWeight="bold">
+          <Typography variant="body2" fontWeight="bold">
             Known for:
           </Typography>
-          <Stack direction="row" spacing={1}>
-            {knownFor &&
-              knownFor.slice(0, 5).map((k: KnownForItem) => (
-                <Box key={k.id} onClick={() => handleMovieClick(k.id)}>
-                  <Card elevation={0}>
-                    <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        height="190"
-                        image={`https://image.tmdb.org/t/p/w500${k.poster_path}`}
-                        alt={k.title}
-                      />
-                    </CardActionArea>
-                  </Card>
-                  <Typography variant="caption">{k.title}</Typography>
-                </Box>
-              ))}
-          </Stack>
+          <ImageList cols={15} sx={{ cursor: "pointer" }}>
+            {knownFor ? (
+              knownFor.slice(0, 15).map((k: KnownForItem) => (
+                <ImageListItem
+                  key={k.id}
+                  onClick={() => handleMovieClick(k.id)}
+                  sx={{ width: 200, height: 200 }}
+                >
+                  <img
+                    srcSet={`https://image.tmdb.org/t/p/w500${k.poster_path}`}
+                    src={`https://image.tmdb.org/t/p/w500${k.poster_path}`}
+                    alt={k.title}
+                    loading="lazy"
+                  />
+                  <ImageListItemBar
+                    title={k.title}
+                    subtitle={k.character}
+                    actionIcon={
+                      <IconButton
+                        sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                        aria-label={`info about ${k.title}`}
+                      >
+                        <InfoIcon />
+                      </IconButton>
+                    }
+                  />
+                </ImageListItem>
+              ))
+            ) : (
+              <Typography variant="subtitle1">No data available</Typography>
+            )}
+          </ImageList>
 
           <Typography gutterBottom variant="body2" fontWeight="bold">
             Adult
