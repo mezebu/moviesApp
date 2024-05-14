@@ -144,26 +144,27 @@ export const getNowPlayingMovies = (page = 1) => {
 };
 
 export const getMyMovieReviews = async () => {
-  /*  const test = await ApiConfig;
-  console.log(`${test.API.endpoints[0].endpoint}movies/789/reviews`);
- */
+  /*   const config = await ApiConfig;
+  const url = `${config.API.endpoints[0].endpoint}movies/789/reviews`; */
+  const dynamoUrl = `https://nafp51zyac.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews`;
+
   try {
-    return fetch(
-      `https://lopbv9wixe.execute-api.eu-west-1.amazonaws.com/dev/movies/789/reviews`
-    )
-      .then((response) => {
-        if (!response.ok)
-          throw new Error(
-            `Unable to fetch dynamo reviews. Response status: ${response.status}`
-          );
-        return response.json();
-      })
-      .then((json) => json.data)
-      .catch((error) => {
-        throw error;
-      });
+    const response = await fetch(dynamoUrl);
+    console.log("HTTP response status:", response.status);
+    if (!response.ok) {
+      throw new Error(
+        `Unable to fetch reviews. Response status: ${response.status}`
+      );
+    }
+    const json = await response.json();
+    console.log("Response JSON:", json);
+    return json.data;
   } catch (error) {
-    console.log(error, "err");
+    if (error instanceof Error) {
+      console.error("Fetch error:", error.message);
+    } else {
+      console.error("An unexpected error occurred:", error);
+    }
   }
 };
 

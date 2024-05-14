@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import ActorDetails from "../components/actorDetails";
 import { MemoryRouter } from "react-router";
 import MoviesContextProvider from "../contexts/moviesContext";
@@ -41,12 +42,21 @@ const actorProfileDetails: ActorProfileDetails[] = [
   },
 ];
 
+const queryClient = new QueryClient();
+
 const meta: Meta<typeof ActorDetails> = {
   title: "Actor Details Page/ActorDetails",
   component: ActorDetails,
   decorators: [
-    (Story) => <MemoryRouter initialEntries={["/"]}>{<Story />}</MemoryRouter>,
-    (Story) => <MoviesContextProvider>{<Story />}</MoviesContextProvider>,
+    (Story) => (
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter initialEntries={["/"]}>
+          <MoviesContextProvider>
+            <Story />
+          </MoviesContextProvider>
+        </MemoryRouter>
+      </QueryClientProvider>
+    ),
   ],
 };
 export default meta;
@@ -56,3 +66,16 @@ export const Basic: Story = {
   args: { actor: actorProfileDetails[0] },
 };
 Basic.storyName = "Default";
+
+// Additional stories for different actors
+export const AnaDeArmas: Story = {
+  ...Basic,
+  args: { actor: actorProfileDetails[0] },
+  storyName: "Ana de Armas",
+};
+
+export const ScarlettJohansson: Story = {
+  ...Basic,
+  args: { actor: actorProfileDetails[1] },
+  storyName: "Scarlett Johansson",
+};
