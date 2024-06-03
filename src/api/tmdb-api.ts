@@ -277,6 +277,51 @@ export const getSeasonDetail = (showId: string, seasonNumber: string) => {
     });
 };
 
+export const getEpisodeDetail = (
+  showId: string,
+  seasonNumber: string,
+  episodeNumber: string
+) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${showId}/season/${seasonNumber}/episode/${episodeNumber}?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }&language=en-US`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          `Failed to fetch episode details: ${response.statusText}`
+        );
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw new Error(`Fetch error: ${error.message}`);
+    });
+};
+
+export const getEpisodeImages = (
+  showId: string,
+  seasonNumber: string,
+  episodeNumber: string
+) => {
+  return fetch(
+    `https://api.themoviedb.org/3/tv/${showId}/season/${seasonNumber}/episode/${episodeNumber}/images?api_key=${
+      import.meta.env.VITE_TMDB_KEY
+    }`
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("failed to fetch images");
+      }
+      return response.json();
+    })
+    .then((json) => json.stills)
+    .catch((error) => {
+      throw error;
+    });
+};
+
 export const getTopRatedMovies = (page = 1) => {
   return fetch(
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${

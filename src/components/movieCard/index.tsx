@@ -1,14 +1,16 @@
 import React, { useContext } from "react";
-import CardActions from "@mui/material/CardActions";
-import Typography from "@mui/material/Typography";
-import InfoIcon from "@mui/icons-material/Info";
-import img from "../../images/film-poster-placeholder.png";
 import { Link } from "react-router-dom";
-import { Box, IconButton, Tooltip } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import Box from "@mui/material/Box";
+import CardActions from "@mui/material/CardActions";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import CircularProgressWithLabel from "../circularProgress";
+import img from "../../images/film-poster-placeholder.png";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { ListedMovie } from "../../types/interfaces";
 import { Content, StyledCard, StyledCardMedia, StyledContent } from "./styles";
-import CircularProgressWithLabel from "../circularProgress";
 
 interface MovieListProps {
   movie: ListedMovie;

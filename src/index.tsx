@@ -29,6 +29,7 @@ import SearchPage from "./pages/searchPage";
 import ShowDetailPage from "./pages/showDetailPage";
 import SimilarMoviesPage from "./pages/similarMoviesPage";
 import SeasonDetailsPage from "./pages/seasonDetailsPage";
+import EpisodeDetailPage from "./pages/episodeDetailPage";
 import NowPlayingPage from "./pages/nowPlayingPage";
 
 const queryClient = new QueryClient({
@@ -74,6 +75,10 @@ const App = () => {
                 <Route
                   path="/season/:showId/:seasonNumber"
                   element={<SeasonDetailsPage />}
+                />
+                <Route
+                  path="/season/:showId/:seasonNumber/:episodeNumber"
+                  element={<EpisodeDetailPage />}
                 />
                 <Route path="/movies/actors" element={<ActorsPage />} />
                 <Route path="/actor/:id" element={<ActorProfilePage />} />
