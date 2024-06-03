@@ -1,44 +1,24 @@
 import React, { useState } from "react";
-import Chip from "@mui/material/Chip";
-import Paper from "@mui/material/Paper";
+import { Link, useNavigate } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
+import NavigationIcon from "@mui/icons-material/Navigation";
 import StarRate from "@mui/icons-material/StarRate";
+import Avatar from "@mui/material/Avatar";
+import Chip from "@mui/material/Chip";
+import Drawer from "@mui/material/Drawer";
+import Fab from "@mui/material/Fab";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { CastMember, MovieT } from "../../types/interfaces";
-import NavigationIcon from "@mui/icons-material/Navigation";
-import Fab from "@mui/material/Fab";
-import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
-import {
-  Avatar,
-  Box,
-  CardActionArea,
-  CardHeader,
-  Stack,
-  Tooltip,
-} from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-
-const styles = {
-  chipSet: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexWrap: "wrap",
-    listStyle: "none",
-    padding: 1.5,
-    my: 0.5,
-  },
-  chipLabel: {
-    margin: 0.5,
-  },
-  fab: {
-    position: "fixed",
-    bottom: 10,
-    right: 2,
-  },
-};
+import { styles } from "./styles";
 
 interface MovieDetailsProps {
   movie: MovieT;
@@ -110,21 +90,26 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, cast }) => {
               title={`${member.name} as ${member.character}`}
               placement="top"
             >
-              <Box onClick={() => handleActorClick(member.id)} sx={{ mt: 5 }}>
-                <CardActionArea>
-                  <CardHeader
-                    avatar={
-                      member.profile_path ? (
-                        <Avatar
-                          alt={member.name}
-                          src={`https://image.tmdb.org/t/p/w500/${member.profile_path}`}
-                        />
-                      ) : null
-                    }
-                    title={<Typography>{member.name}</Typography>}
+              <List
+                sx={{ width: "100%", maxWidth: 250, cursor: "pointer" }}
+                onClick={() => handleActorClick(member.id)}
+              >
+                <ListItem>
+                  <ListItemAvatar>
+                    {member.profile_path ? (
+                      <Avatar
+                        alt={member.name}
+                        src={`https://image.tmdb.org/t/p/w500/${member.profile_path}`}
+                        sx={{ width: 56, height: 56, mr: 2 }}
+                      />
+                    ) : null}
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={member.name}
+                    secondary={`as ${member.character}`}
                   />
-                </CardActionArea>
-              </Box>
+                </ListItem>
+              </List>
             </Tooltip>
           ))}
         </Stack>
