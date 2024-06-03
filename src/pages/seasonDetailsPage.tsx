@@ -1,12 +1,13 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { SeasonDetail } from "../types/interfaces";
 import { getSeasonDetail } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
-import { Avatar, Box, Chip, Grid, Typography } from "@mui/material";
+import { Avatar, Box, Chip, Grid, Link, Typography } from "@mui/material";
 
 const SeasonDetailsPage: React.FC = () => {
+  const navigate = useNavigate();
   const { showId, seasonNumber } = useParams<{
     showId: string;
     seasonNumber: string;
@@ -27,6 +28,10 @@ const SeasonDetailsPage: React.FC = () => {
   if (isError) return <h1>{error.message}</h1>;
 
   if (!seasonDetail) return <h1>Season details not found.</h1>;
+
+  const handleEpisodeClick = (epiNumber: number) => {
+    navigate(`/season/${showId}/${seasonNumber}/${epiNumber}`);
+  };
 
   return (
     <Box sx={{ p: 3 }}>
@@ -52,7 +57,12 @@ const SeasonDetailsPage: React.FC = () => {
               )}
             </Box>
 
-            <Typography variant="h6">{`Episode ${episode.episode_number}: ${episode.name}`}</Typography>
+            <Typography
+              component={Link}
+              onClick={() => handleEpisodeClick(episode.episode_number)}
+              sx={{ cursor: "pointer" }}
+              variant="h6"
+            >{`Episode ${episode.episode_number}: ${episode.name}`}</Typography>
             <Typography variant="body2">{episode.overview}</Typography>
           </Grid>
         ))}
