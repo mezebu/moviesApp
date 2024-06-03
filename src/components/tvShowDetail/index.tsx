@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TVShowDetail, TvCastMember } from "../../types/interfaces";
+import SortIcon from "@mui/icons-material/Sort";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import CardActionArea from "@mui/material/CardActionArea";
 import CardHeader from "@mui/material/CardHeader";
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import SortIcon from "@mui/icons-material/Sort";
-import { Link } from "@mui/material";
+import { TVShowDetail, TvCastMember } from "../../types/interfaces";
+import Link from "@mui/material/Link";
 
 interface TvShowDetailsProps {
   show: TVShowDetail;
@@ -123,22 +126,26 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
             title={`${member.name} as ${member.character}`}
             placement="top"
           >
-            <Box onClick={() => handleActorClick(member.id)} sx={{ mt: 5 }}>
-              <CardActionArea>
-                <CardHeader
-                  avatar={
-                    member.profile_path ? (
-                      <Avatar
-                        alt={member.name}
-                        src={`https://image.tmdb.org/t/p/w500/${member.profile_path}`}
-                        sx={{ width: 56, height: 60 }}
-                      />
-                    ) : null
-                  }
-                  title={<Typography>{member.name}</Typography>}
+            <List
+              sx={{ width: "100%", maxWidth: 250, cursor: "pointer" }}
+              onClick={() => handleActorClick(member.id)}
+            >
+              <ListItem>
+                <ListItemAvatar>
+                  {member.profile_path ? (
+                    <Avatar
+                      alt={member.name}
+                      src={`https://image.tmdb.org/t/p/w500/${member.profile_path}`}
+                      sx={{ width: 56, height: 56, mr: 2 }}
+                    />
+                  ) : null}
+                </ListItemAvatar>
+                <ListItemText
+                  primary={member.name}
+                  secondary={`as ${member.character}`}
                 />
-              </CardActionArea>
-            </Box>
+              </ListItem>
+            </List>
           </Tooltip>
         ))}
       </Stack>
