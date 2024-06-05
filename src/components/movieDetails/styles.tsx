@@ -5,15 +5,15 @@ export const styles = {
     alignItems: "center",
     flexWrap: "wrap",
     listStyle: "none",
-    padding: 1.5,
-    my: 0.5,
+    padding: "0.7rem",
+    marginBottom: "0.5rem",
   },
   chipLabel: {
-    margin: 0.5,
+    margin: "0.5rem",
   },
   fab: {
     position: "fixed",
-    bottom: 10,
-    right: 2,
+    bottom: "2rem",
+    right: "2rem",
   },
 };

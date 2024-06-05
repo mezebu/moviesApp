@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import MonetizationIcon from "@mui/icons-material/MonetizationOn";
 import NavigationIcon from "@mui/icons-material/Navigation";
-import StarRate from "@mui/icons-material/StarRate";
+import StarRateIcon from "@mui/icons-material/StarRate";
 import Avatar from "@mui/material/Avatar";
 import Chip from "@mui/material/Chip";
 import Drawer from "@mui/material/Drawer";
@@ -19,6 +19,7 @@ import Typography from "@mui/material/Typography";
 import { CastMember, MovieT } from "../../types/interfaces";
 import MovieReviews from "../movieReviews";
 import { styles } from "./styles";
+import { Box } from "@mui/material";
 
 interface MovieDetailsProps {
   movie: MovieT;
@@ -35,13 +36,15 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, cast }) => {
 
   return (
     <>
-      <Typography variant="h5" component="h3">
-        Overview
-      </Typography>
+      <Box sx={{ textAlign: "center" }}>
+        <Typography variant="h5" component="h3" sx={{ my: "1rem" }}>
+          Overview
+        </Typography>
 
-      <Typography variant="h6" component="p">
-        {movie.overview}
-      </Typography>
+        <Typography variant="body1" component="p" sx={{ margin: "0 auto" }}>
+          {movie.overview}
+        </Typography>
+      </Box>
 
       <Paper variant="outlined" component="ul" sx={styles.chipSet}>
         <li>
@@ -74,8 +77,8 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, cast }) => {
           label={`${movie.revenue.toLocaleString()}`}
         />
         <Chip
-          icon={<StarRate />}
-          label={`${movie.vote_average} (${movie.vote_count}`}
+          icon={<StarRateIcon />}
+          label={`${movie.vote_average} (${movie.vote_count})`}
         />
         <Chip label={`Released: ${movie.release_date}`} />
       </Paper>
@@ -91,7 +94,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, cast }) => {
               placement="top"
             >
               <List
-                sx={{ width: "100%", maxWidth: 250, cursor: "pointer" }}
+                sx={{ width: "100%", maxWidth: 240, cursor: "pointer" }}
                 onClick={() => handleActorClick(member.id)}
               >
                 <ListItem>
@@ -100,13 +103,20 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ movie, cast }) => {
                       <Avatar
                         alt={member.name}
                         src={`https://image.tmdb.org/t/p/w500/${member.profile_path}`}
-                        sx={{ width: 56, height: 56, mr: 2 }}
+                        sx={{ width: 50, height: 50, mr: 1 }}
                       />
                     ) : null}
                   </ListItemAvatar>
                   <ListItemText
                     primary={member.name}
-                    secondary={`as ${member.character}`}
+                    secondary={
+                      <Typography
+                        variant="body2"
+                        style={{ fontStyle: "italic" }}
+                      >
+                        as {member.character}
+                      </Typography>
+                    }
                   />
                 </ListItem>
               </List>

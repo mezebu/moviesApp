@@ -25,9 +25,11 @@ const SeasonDetailsPage: React.FC = () => {
 
   if (isLoading) return <Spinner />;
 
-  if (isError) return <h1>{error.message}</h1>;
+  if (isError)
+    return <Typography variant="h6">Error: {error.message}</Typography>;
 
-  if (!seasonDetail) return <h1>Season details not found.</h1>;
+  if (!seasonDetail)
+    return <Typography variant="h6">Season details not found.</Typography>;
 
   const handleEpisodeClick = (epiNumber: number) => {
     navigate(`/season/${showId}/${seasonNumber}/${epiNumber}`);
@@ -38,32 +40,46 @@ const SeasonDetailsPage: React.FC = () => {
       <Typography variant="h4" component="h2">
         {seasonDetail.name}
       </Typography>
-      <Typography variant="subtitle1">{seasonDetail.overview}</Typography>
+      <Typography variant="body1" sx={{ mb: 2 }}>
+        {seasonDetail.overview}
+      </Typography>
       <Box sx={{ my: 2 }}>
         <Chip label={`Season Number: ${seasonDetail.season_number}`} />
         <Chip label={`Episodes: ${seasonDetail.episodes.length}`} />
         <Chip label={`Air Date: ${seasonDetail.air_date}`} />
       </Box>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} mt={3}>
         {seasonDetail.episodes.map((episode) => (
-          <Grid item lg={4} xs={12} sm={6} key={episode.id} sx={{ my: 2 }}>
-            <Box>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={episode.id}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
               {episode.still_path && (
                 <Avatar
                   src={`https://image.tmdb.org/t/p/w500${episode.still_path}`}
+                  alt={`Episode ${episode.episode_number}`}
                   variant="rounded"
-                  sx={{ width: "100%", height: "100%" }}
+                  sx={{ width: "100%", height: "100%", mb: 1 }}
                 />
               )}
+              <Typography
+                component={Link}
+                onClick={() => handleEpisodeClick(episode.episode_number)}
+                variant="body1"
+                align="center"
+                sx={{ cursor: "pointer", mb: 1 }}
+                underline="hover"
+              >
+                Episode {episode.episode_number}: {episode.name}
+              </Typography>
+              <Typography variant="body2" align="center">
+                {episode.overview}
+              </Typography>
             </Box>
-
-            <Typography
-              component={Link}
-              onClick={() => handleEpisodeClick(episode.episode_number)}
-              sx={{ cursor: "pointer" }}
-              variant="h6"
-            >{`Episode ${episode.episode_number}: ${episode.name}`}</Typography>
-            <Typography variant="body2">{episode.overview}</Typography>
           </Grid>
         ))}
       </Grid>

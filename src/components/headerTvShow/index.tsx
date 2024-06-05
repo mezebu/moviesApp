@@ -4,18 +4,8 @@ import Typography from "@mui/material/Typography";
 import HomeIcon from "@mui/icons-material/Home";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { ListedMovie, ShowT } from "../../types/interfaces";
-import { Avatar, Link } from "@mui/material";
-import { red } from "@mui/material/colors";
-
-const styles = {
-  root: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexWrap: "wrap",
-    padding: 1.5,
-  },
-};
+import { Avatar, IconButton } from "@mui/material";
+import { styles } from "./styles";
 
 const TvShowHeader: React.FC<ShowT> = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -28,21 +18,29 @@ const TvShowHeader: React.FC<ShowT> = (props) => {
   }, [props.id]);
 
   return (
-    <Paper elevation={0} variant="outlined" sx={styles.root}>
+    <Paper elevation={3} sx={styles.root}>
       {isFavorite && (
-        <Avatar sx={{ bgcolor: red[500] }}>
+        <Avatar sx={styles.favoriteIcon}>
           <FavoriteIcon />
         </Avatar>
       )}
 
-      <Typography variant="h4" component="h3">
+      <Typography variant="h4" component="h3" sx={styles.title}>
         {props.name}
-        {"   "}
-        <Link href={`${props.homepage}`} target="_blank" rel="noreferrer">
-          <HomeIcon color="primary" fontSize="large" />
-        </Link>
-        <br />
-        <span>{`${props.tagline}`} </span>
+        {props.homepage && (
+          <IconButton
+            href={props.homepage}
+            target="_blank"
+            color="primary"
+            size="large"
+          >
+            <HomeIcon />
+          </IconButton>
+        )}
+      </Typography>
+
+      <Typography variant="subtitle1" sx={styles.tagline}>
+        {props.tagline}
       </Typography>
     </Paper>
   );
