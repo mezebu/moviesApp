@@ -84,13 +84,8 @@ const ActorDetails: React.FC<ActorDetailsProps> = ({ actor }) => {
             alignItems="center"
           >
             <Box>
-              <Typography
-                gutterBottom
-                variant="h5"
-                component="div"
-                fontWeight="bold"
-              >
-                {actor.name}
+              <Typography gutterBottom variant="subtitle2">
+                Gender: {actor.gender === 1 ? "Female" : "Male"}
               </Typography>
               <Typography gutterBottom variant="subtitle2">
                 Birthday: {displayBirthday}
@@ -98,10 +93,11 @@ const ActorDetails: React.FC<ActorDetailsProps> = ({ actor }) => {
               <Typography gutterBottom variant="subtitle2">
                 IMDb:{" "}
                 <Link
+                  color="primary"
                   href={`https://www.imdb.com/name/${actor.imdb_id}`}
                   target="_blank"
                 >
-                  {actor.imdb_id}
+                  View IMDb Profile
                 </Link>
               </Typography>
               <Typography gutterBottom variant="subtitle2">
@@ -109,9 +105,6 @@ const ActorDetails: React.FC<ActorDetailsProps> = ({ actor }) => {
               </Typography>
             </Box>
             <Box>
-              <Typography gutterBottom variant="subtitle2">
-                Gender: {actor.gender === 1 ? "Female" : "Male"}
-              </Typography>
               <Typography gutterBottom variant="subtitle2">
                 Popularity: {actor.popularity.toFixed(2)}
               </Typography>
@@ -141,44 +134,30 @@ const ActorDetails: React.FC<ActorDetailsProps> = ({ actor }) => {
 
         <Box sx={{ p: 2 }}>
           <Box>
-            <Typography gutterBottom variant="subtitle2" fontWeight="bold">
+            <Typography gutterBottom variant="subtitle2">
               Also known as: {actor.also_known_as.join(", ")}
             </Typography>
           </Box>
-          <Typography gutterBottom variant="subtitle2">
-            <Link
-              color="primary"
-              href={`https://www.imdb.com/name/${actor.imdb_id}`}
-              target="_blank"
-            >
-              View IMDb Profile
-            </Link>
-          </Typography>
           <Typography variant="body2" fontWeight="bold">
             Known for:
           </Typography>
-          <ImageList cols={15} sx={{ cursor: "pointer" }}>
+          <ImageList cols={4}>
             {knownFor ? (
-              knownFor.slice(0, 15).map((k: KnownForItem) => (
+              knownFor.slice(0, 8).map((k: KnownForItem) => (
                 <ImageListItem
                   key={k.id}
                   onClick={() => handleMovieClick(k.id)}
-                  sx={{ width: 200, height: 200 }}
+                  sx={{ cursor: "pointer" }}
                 >
                   <img
-                    srcSet={`https://image.tmdb.org/t/p/w500${k.poster_path}`}
                     src={`https://image.tmdb.org/t/p/w500${k.poster_path}`}
                     alt={k.title}
-                    loading="lazy"
                   />
                   <ImageListItemBar
                     title={k.title}
                     subtitle={k.character}
                     actionIcon={
-                      <IconButton
-                        sx={{ color: "rgba(255, 255, 255, 0.54)" }}
-                        aria-label={`info about ${k.title}`}
-                      >
+                      <IconButton color="inherit">
                         <InfoIcon />
                       </IconButton>
                     }
@@ -186,7 +165,7 @@ const ActorDetails: React.FC<ActorDetailsProps> = ({ actor }) => {
                 </ImageListItem>
               ))
             ) : (
-              <Typography variant="subtitle1">No data available</Typography>
+              <Typography variant="body2">No data available</Typography>
             )}
           </ImageList>
 

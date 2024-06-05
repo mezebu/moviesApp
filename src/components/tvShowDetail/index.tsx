@@ -14,8 +14,8 @@ import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { TVShowDetail, TvCastMember } from "../../types/interfaces";
 import Link from "@mui/material/Link";
+import { TVShowDetail, TvCastMember } from "../../types/interfaces";
 
 interface TvShowDetailsProps {
   show: TVShowDetail;
@@ -47,7 +47,7 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
       <Divider>
         <Chip label="Overview" size="medium" color="primary" />
       </Divider>
-      <Typography variant="h6" component="p">
+      <Typography variant="body1" component="p" sx={{ my: 2 }}>
         {show.overview}
       </Typography>
       <Divider>
@@ -75,24 +75,32 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
       </Divider>
       <Stack direction="row" spacing={2} justifyContent="center" sx={{ my: 2 }}>
         {show.production_companies.map((pc) => (
-          <Box key={pc.id} sx={{ display: "flex", alignItems: "center" }}>
-            <Avatar
-              alt={pc.name}
-              src={`https://image.tmdb.org/t/p/w400/${pc.logo_path}`}
-            />
-            <Chip label={pc.name} size="medium" />
-          </Box>
+          <Chip
+            key={pc.id}
+            avatar={
+              <Avatar
+                alt={pc.name}
+                src={`https://image.tmdb.org/t/p/w400/${pc.logo_path}`}
+              />
+            }
+            label={pc.name}
+            size="medium"
+          />
         ))}
       </Stack>
       <Stack direction="row" spacing={2} justifyContent="center" sx={{ my: 2 }}>
         {show.networks.map((pc) => (
-          <Box key={pc.id} sx={{ display: "flex", alignItems: "center" }}>
-            <Avatar
-              alt={pc.name}
-              src={`https://image.tmdb.org/t/p/w400/${pc.logo_path}`}
-            />
-            <Chip label={pc.name} size="medium" />
-          </Box>
+          <Chip
+            key={pc.id}
+            avatar={
+              <Avatar
+                alt={pc.name}
+                src={`https://image.tmdb.org/t/p/w400/${pc.logo_path}`}
+              />
+            }
+            label={pc.name}
+            size="medium"
+          />
         ))}
       </Stack>
       <Divider>
@@ -172,9 +180,11 @@ const TvShowDetail: React.FC<TvShowDetailsProps> = ({ show, cast }) => {
                   />
                 ) : null
               }
-              title={<Typography> {season.name}</Typography>}
+              title={
+                <Typography variant="subtitle1"> {season.name}</Typography>
+              }
               subheader={
-                <Typography>
+                <Typography variant="body2">
                   Number of episodes: {season.episode_count}
                 </Typography>
               }
