@@ -1,6 +1,6 @@
-# Assignment 2 - Movie Fans Web App
+# Movie Web App
 
-**Name:** Uchechukwu Henry Ezeigwe
+**Name:** Henry Ezeigwe
 
 **Video demonstration:** [\[URL of YouTube video demonstration\]](https://youtu.be/te6A21TtrAc?si=U6x1szZ5wFvVNa8q)
 
