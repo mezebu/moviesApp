@@ -2,8 +2,6 @@
 
 **Name:** Henry Ezeigwe
 
-**Video demonstration:** [\[URL of YouTube video demonstration\]](https://youtu.be/te6A21TtrAc?si=U6x1szZ5wFvVNa8q)
-
 This repository contains an implementation of the Movie Fans Web Application using the ReactJS library.
 
 ### Features
